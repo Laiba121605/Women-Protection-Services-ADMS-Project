@@ -1,0 +1,38 @@
+[2026-03-14T12:19:57.603Z] [TX-START  ] Route: POST /auth/register | User: victim.zara@wps.com
+[2026-03-14T12:19:57.756Z] [TX-ROLLBACK] Route: POST /auth/register | Reason: Duplicate entry 'victim.zara@wps.com' for key 'user.Email'
+[2026-03-14T15:10:31.187Z] [TX-START  ] Route: POST /password-recovery | User: vol.ayesha@test.com
+[2026-03-14T15:10:31.191Z] [TX-ROLLBACK] Route: POST /password-recovery | Reason: User not found: vol.ayesha@test.com
+[2026-03-14T15:11:31.456Z] [SUCCESS   ] Login: U005 | Roles: Dispatcher
+[2026-03-14T15:12:14.472Z] [TX-START  ] Route: POST /password-recovery | User: dispatcher.omar@wps.com
+[2026-03-14T15:12:14.482Z] [INFO      ] Inserted Password_Recovery: 4bc55fd977c70bc4869d | User: dispatcher.omar@wps.com | Admin: U002
+[2026-03-14T15:12:14.485Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 4bc55fd977c70bc4869d created
+[2026-03-14T15:19:16.058Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-14T15:20:15.593Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-14T15:20:15.596Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: PR002
+[2026-03-14T15:20:46.153Z] [TX-START  ] Route: POST /victim/register | User: U002
+[2026-03-14T15:20:46.156Z] [TX-ROLLBACK] Route: POST /victim/register | Reason: Invalid Emergency_contact format
+[2026-03-14T15:20:57.987Z] [TX-START  ] Route: POST /victim/register | User: U002
+[2026-03-14T15:20:57.990Z] [INFO      ] Inserted Victim: U002
+[2026-03-14T15:20:57.992Z] [TX-COMMIT ] Route: POST /victim/register | User U002 registered as Victim
+[2026-03-14T15:22:29.476Z] [SUCCESS   ] Login: U002 | Roles: Victim, Admin
+[2026-03-14T15:23:59.127Z] [TX-START  ] Route: POST /victim/register | User: U002
+[2026-03-14T15:23:59.129Z] [TX-ROLLBACK] Route: POST /victim/register | Reason: Already a victim: U002
+[2026-03-14T15:25:07.004Z] [TX-START  ] Route: POST /victim/request | User: U002
+[2026-03-14T15:25:07.006Z] [TX-ROLLBACK] Route: POST /victim/request | Reason: No dispatchers available
+[2026-03-14T15:26:19.669Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-14T15:26:19.671Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Not found: P2345
+[2026-03-14T15:26:41.299Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-14T15:26:41.301Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: PR001
+[2026-03-14T15:29:52.228Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U002
+[2026-03-14T15:29:52.231Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Not found: PR000
+[2026-03-14T15:29:59.263Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U002
+[2026-03-14T15:29:59.265Z] [TX-ROLLBACK] Route: DELETE /password-recovery/:id | Reason: Not found: PR000
+[2026-03-14T15:30:09.039Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U002
+[2026-03-14T15:30:09.041Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Already processed: PR001
+[2026-03-14T15:30:22.796Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U002
+[2026-03-14T15:30:22.807Z] [TX-COMMIT ] Route: DELETE /password-recovery/:id | Recovery PR001 deleted
+[2026-03-14T15:30:24.962Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U002
+[2026-03-14T15:30:24.965Z] [TX-ROLLBACK] Route: DELETE /password-recovery/:id | Reason: Not found: PR001
+[2026-03-14T15:32:30.036Z] [SUCCESS   ] Login: U009 | Roles: Volunteer
+[2026-03-14T15:45:57.125Z] [TX-START  ] Route: PUT /volunteer/assignment/:id | User: U009
+[2026-03-14T15:45:57.135Z] [ERROR     ] Status update failed | Volunteer: U009 | Assignment: A001
