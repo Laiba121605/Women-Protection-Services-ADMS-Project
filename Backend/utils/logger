@@ -1,0 +1,40 @@
+// utils/logger.js
+// Simple transaction logger — writes to /logs/transactions.log
+// Usage: const logger = require('../utils/logger');
+
+const fs = require('fs');
+const path = require('path');
+
+// Ensure logs directory exists next to utils/
+const logDir = path.join(__dirname, '..', 'logs');
+if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir, { recursive: true });
+}
+
+const logFile = path.join(logDir, 'transactions.log');
+
+const logger = {
+
+    _write(level, message) {
+        const timestamp = new Date().toISOString();
+        const line = `[${timestamp}] [${level.padEnd(10)}] ${message}\n`;
+        fs.appendFileSync(logFile, line);
+        console.log(line.trim());
+    },
+
+    info(message)     { this._write('INFO',     message); },
+    success(message)  { this._write('SUCCESS',  message); },
+    error(message)    { this._write('ERROR',    message); },
+
+    txStart(route, identifier) {
+        this._write('TX-START',    `Route: ${route} | User: ${identifier}`);
+    },
+    txCommit(route, detail) {
+        this._write('TX-COMMIT',   `Route: ${route} | ${detail}`);
+    },
+    txRollback(route, reason) {
+        this._write('TX-ROLLBACK', `Route: ${route} | Reason: ${reason}`);
+    },
+};
+
+module.exports = logger;

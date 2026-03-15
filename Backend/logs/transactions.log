@@ -1,0 +1,184 @@
+[2026-03-14T12:19:57.603Z] [TX-START  ] Route: POST /auth/register | User: victim.zara@wps.com
+[2026-03-14T12:19:57.756Z] [TX-ROLLBACK] Route: POST /auth/register | Reason: Duplicate entry 'victim.zara@wps.com' for key 'user.Email'
+[2026-03-14T15:10:31.187Z] [TX-START  ] Route: POST /password-recovery | User: vol.ayesha@test.com
+[2026-03-14T15:10:31.191Z] [TX-ROLLBACK] Route: POST /password-recovery | Reason: User not found: vol.ayesha@test.com
+[2026-03-14T15:11:31.456Z] [SUCCESS   ] Login: U005 | Roles: Dispatcher
+[2026-03-14T15:12:14.472Z] [TX-START  ] Route: POST /password-recovery | User: dispatcher.omar@wps.com
+[2026-03-14T15:12:14.482Z] [INFO      ] Inserted Password_Recovery: 4bc55fd977c70bc4869d | User: dispatcher.omar@wps.com | Admin: U002
+[2026-03-14T15:12:14.485Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 4bc55fd977c70bc4869d created
+[2026-03-14T15:19:16.058Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-14T15:20:15.593Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-14T15:20:15.596Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: PR002
+[2026-03-14T15:20:46.153Z] [TX-START  ] Route: POST /victim/register | User: U002
+[2026-03-14T15:20:46.156Z] [TX-ROLLBACK] Route: POST /victim/register | Reason: Invalid Emergency_contact format
+[2026-03-14T15:20:57.987Z] [TX-START  ] Route: POST /victim/register | User: U002
+[2026-03-14T15:20:57.990Z] [INFO      ] Inserted Victim: U002
+[2026-03-14T15:20:57.992Z] [TX-COMMIT ] Route: POST /victim/register | User U002 registered as Victim
+[2026-03-14T15:22:29.476Z] [SUCCESS   ] Login: U002 | Roles: Victim, Admin
+[2026-03-14T15:23:59.127Z] [TX-START  ] Route: POST /victim/register | User: U002
+[2026-03-14T15:23:59.129Z] [TX-ROLLBACK] Route: POST /victim/register | Reason: Already a victim: U002
+[2026-03-14T15:25:07.004Z] [TX-START  ] Route: POST /victim/request | User: U002
+[2026-03-14T15:25:07.006Z] [TX-ROLLBACK] Route: POST /victim/request | Reason: No dispatchers available
+[2026-03-14T15:26:19.669Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-14T15:26:19.671Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Not found: P2345
+[2026-03-14T15:26:41.299Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-14T15:26:41.301Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: PR001
+[2026-03-14T15:29:52.228Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U002
+[2026-03-14T15:29:52.231Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Not found: PR000
+[2026-03-14T15:29:59.263Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U002
+[2026-03-14T15:29:59.265Z] [TX-ROLLBACK] Route: DELETE /password-recovery/:id | Reason: Not found: PR000
+[2026-03-14T15:30:09.039Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U002
+[2026-03-14T15:30:09.041Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Already processed: PR001
+[2026-03-14T15:30:22.796Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U002
+[2026-03-14T15:30:22.807Z] [TX-COMMIT ] Route: DELETE /password-recovery/:id | Recovery PR001 deleted
+[2026-03-14T15:30:24.962Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U002
+[2026-03-14T15:30:24.965Z] [TX-ROLLBACK] Route: DELETE /password-recovery/:id | Reason: Not found: PR001
+[2026-03-14T15:32:30.036Z] [SUCCESS   ] Login: U009 | Roles: Volunteer
+[2026-03-14T15:45:57.125Z] [TX-START  ] Route: PUT /volunteer/assignment/:id | User: U009
+[2026-03-14T15:45:57.135Z] [ERROR     ] Status update failed | Volunteer: U009 | Assignment: A001
+[2026-03-15T07:23:32.936Z] [SUCCESS   ] Login: U009 | Roles: Volunteer
+[2026-03-15T13:02:15.220Z] [SUCCESS   ] Login: U019 | Roles: Victim
+[2026-03-15T13:02:15.282Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T13:02:15.337Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-15T13:02:15.341Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:02:15.348Z] [INFO      ] Inserted Password_Recovery: e5eab8fd8925564adfda | User: victim.zara@wps.com | Admin: U002
+[2026-03-15T13:02:15.351Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request e5eab8fd8925564adfda created
+[2026-03-15T13:02:15.362Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T13:02:15.364Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Check constraint 'password_recovery_chk_1' is violated.
+[2026-03-15T13:02:15.366Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T13:02:15.419Z] [INFO      ] Password updated for: victim.zara@wps.com
+[2026-03-15T13:02:15.422Z] [TX-COMMIT ] Route: PUT /password-recovery/:id/reset-password | Password reset for victim.zara@wps.com
+[2026-03-15T13:02:15.425Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T13:02:15.427Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: e5eab8fd8925564adfda
+[2026-03-15T13:02:15.429Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T13:02:15.430Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Already processed: e5eab8fd8925564adfda
+[2026-03-15T13:02:15.433Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:02:15.435Z] [INFO      ] Inserted Password_Recovery: 3b77eae2d4f79a366166 | User: victim.zara@wps.com | Admin: U003
+[2026-03-15T13:02:15.436Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 3b77eae2d4f79a366166 created
+[2026-03-15T13:02:15.439Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T13:02:15.440Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-15T13:02:15.493Z] [INFO      ] Password updated for: victim.zara@wps.com
+[2026-03-15T13:02:15.495Z] [TX-COMMIT ] Route: PUT /password-recovery/:id/reset-password | Password reset for victim.zara@wps.com
+[2026-03-15T13:02:15.496Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: 3b77eae2d4f79a366166
+[2026-03-15T13:02:15.499Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:02:15.501Z] [INFO      ] Inserted Password_Recovery: 5676400880d28c34e89d | User: victim.zara@wps.com | Admin: U001
+[2026-03-15T13:02:15.503Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 5676400880d28c34e89d created
+[2026-03-15T13:02:15.505Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:02:15.507Z] [INFO      ] Inserted Password_Recovery: 4ffd21e633378d127873 | User: victim.zara@wps.com | Admin: U001
+[2026-03-15T13:02:15.509Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 4ffd21e633378d127873 created
+[2026-03-15T13:02:15.511Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:02:15.513Z] [INFO      ] Inserted Password_Recovery: eb151c6542333c5ac3a8 | User: victim.zara@wps.com | Admin: U001
+[2026-03-15T13:02:15.515Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request eb151c6542333c5ac3a8 created
+[2026-03-15T13:28:46.068Z] [SUCCESS   ] Login: U020 | Roles: Victim
+[2026-03-15T13:28:46.173Z] [SUCCESS   ] Login: U019 | Roles: Victim
+[2026-03-15T13:28:46.268Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T13:28:46.369Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-15T13:28:46.463Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T13:28:46.470Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:28:46.480Z] [INFO      ] Inserted Password_Recovery: d4b172c778f3b361efd8 | User: victim.zara@wps.com | Admin: U002
+[2026-03-15T13:28:46.516Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request d4b172c778f3b361efd8 created
+[2026-03-15T13:28:46.537Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T13:28:46.543Z] [TX-COMMIT ] Route: PUT /password-recovery/:id | Recovery d4b172c778f3b361efd8 updated -> Pending
+[2026-03-15T13:28:46.547Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T13:28:46.638Z] [INFO      ] Password updated for: victim.zara@wps.com
+[2026-03-15T13:28:46.648Z] [TX-COMMIT ] Route: PUT /password-recovery/:id/reset-password | Password reset for victim.zara@wps.com
+[2026-03-15T13:28:46.652Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T13:28:46.654Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: d4b172c778f3b361efd8
+[2026-03-15T13:28:46.658Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T13:28:46.661Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Already processed: d4b172c778f3b361efd8
+[2026-03-15T13:28:46.664Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:28:46.670Z] [INFO      ] Inserted Password_Recovery: 2cf50da657d2f13a6451 | User: victim.zara@wps.com | Admin: U003
+[2026-03-15T13:28:46.673Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 2cf50da657d2f13a6451 created
+[2026-03-15T13:28:46.678Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T13:28:46.680Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-15T13:28:46.775Z] [INFO      ] Password updated for: victim.zara@wps.com
+[2026-03-15T13:28:46.788Z] [TX-COMMIT ] Route: PUT /password-recovery/:id/reset-password | Password reset for victim.zara@wps.com
+[2026-03-15T13:28:46.790Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: 2cf50da657d2f13a6451
+[2026-03-15T13:28:46.794Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:28:46.797Z] [INFO      ] Inserted Password_Recovery: 341c81acb387e2718520 | User: victim.zara@wps.com | Admin: U001
+[2026-03-15T13:28:46.801Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 341c81acb387e2718520 created
+[2026-03-15T13:28:46.804Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:28:46.807Z] [INFO      ] Inserted Password_Recovery: b4cd4098d86402c55f35 | User: victim.zara@wps.com | Admin: U002
+[2026-03-15T13:28:46.811Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request b4cd4098d86402c55f35 created
+[2026-03-15T13:28:46.813Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:28:46.818Z] [INFO      ] Inserted Password_Recovery: 936861330be8ba73de95 | User: victim.zara@wps.com | Admin: U003
+[2026-03-15T13:28:46.822Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 936861330be8ba73de95 created
+[2026-03-15T13:28:46.826Z] [TX-START  ] Route: POST /password-recovery | User: victim.zara@wps.com
+[2026-03-15T13:28:46.829Z] [INFO      ] Inserted Password_Recovery: 96dca115f73ced82ad7b | User: victim.zara@wps.com | Admin: U001
+[2026-03-15T13:28:46.833Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 96dca115f73ced82ad7b created
+[2026-03-15T13:28:46.837Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U001
+[2026-03-15T13:28:46.842Z] [TX-COMMIT ] Route: DELETE /password-recovery/:id | Recovery 96dca115f73ced82ad7b deleted
+[2026-03-15T13:28:46.846Z] [TX-START  ] Route: POST /victim/request | User: U020
+[2026-03-15T13:28:46.851Z] [INFO      ] Inserted Request_log: 41a3ca5d57d974e054fd | Victim: U020 | Dispatcher: U005
+[2026-03-15T13:28:46.854Z] [TX-COMMIT ] Route: POST /victim/request | Request 41a3ca5d57d974e054fd submitted
+[2026-03-15T13:28:46.877Z] [TX-START  ] Route: POST /victim/request | User: U020
+[2026-03-15T13:28:46.881Z] [INFO      ] Inserted Request_log: bcb9cdaa39cff56c1c54 | Victim: U020 | Dispatcher: U006
+[2026-03-15T13:28:46.885Z] [TX-COMMIT ] Route: POST /victim/request | Request bcb9cdaa39cff56c1c54 submitted
+[2026-03-15T13:28:46.888Z] [TX-START  ] Route: POST /victim/request | User: U020
+[2026-03-15T13:28:46.891Z] [INFO      ] Inserted Request_log: 0999535bac8ba99fb3cd | Victim: U020 | Dispatcher: U006
+[2026-03-15T13:28:46.895Z] [TX-COMMIT ] Route: POST /victim/request | Request 0999535bac8ba99fb3cd submitted
+[2026-03-15T13:28:46.898Z] [TX-START  ] Route: POST /victim/request | User: U020
+[2026-03-15T13:28:46.901Z] [INFO      ] Inserted Request_log: 06943ce7eab0c29dbfee | Victim: U020 | Dispatcher: U007
+[2026-03-15T13:28:46.905Z] [TX-COMMIT ] Route: POST /victim/request | Request 06943ce7eab0c29dbfee submitted
+[2026-03-15T15:01:25.418Z] [SUCCESS   ] Login: U020 | Roles: Victim
+[2026-03-15T15:03:00.835Z] [TX-START  ] Route: POST /auth/register | User: testuser123@wps.com
+[2026-03-15T15:03:00.898Z] [INFO      ] Inserted User: e20143faeb0bfb4e (testuser123@wps.com)
+[2026-03-15T15:03:00.899Z] [INFO      ] Inserted Victim: e20143faeb0bfb4e
+[2026-03-15T15:03:00.902Z] [TX-COMMIT ] Route: POST /auth/register | Victim registered: e20143faeb0bfb4e
+[2026-03-15T15:03:00.908Z] [TX-START  ] Route: POST /auth/register | User: testuser123@wps.com
+[2026-03-15T15:03:00.962Z] [TX-ROLLBACK] Route: POST /auth/register | Reason: Duplicate entry 'testuser123@wps.com' for key 'user.Email'
+[2026-03-15T15:03:00.967Z] [TX-START  ] Route: POST /auth/register | User: testuser456@wps.com
+[2026-03-15T15:03:01.020Z] [TX-ROLLBACK] Route: POST /auth/register | Reason: Duplicate entry '3520111111999' for key 'user.CNIC'
+[2026-03-15T15:06:39.124Z] [TX-START  ] Route: POST /auth/register | User: testuser123@wps.com
+[2026-03-15T15:06:39.135Z] [TX-START  ] Route: POST /auth/register | User: testuser123@wps.com
+[2026-03-15T15:06:39.140Z] [TX-START  ] Route: POST /auth/register | User: testuser456@wps.com
+[2026-03-15T15:53:30.057Z] [SUCCESS   ] Login: U021 | Roles: Victim
+[2026-03-15T15:53:30.129Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T15:53:30.186Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-15T15:53:30.241Z] [SUCCESS   ] Login: U003 | Roles: Admin
+[2026-03-15T15:53:30.245Z] [TX-START  ] Route: POST /password-recovery | User: victim.sadia@wps.com
+[2026-03-15T15:53:30.259Z] [INFO      ] Inserted Password_Recovery: e8d4d2dd5dc80cb4e782 | User: victim.sadia@wps.com | Admin: U001
+[2026-03-15T15:53:30.262Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request e8d4d2dd5dc80cb4e782 created
+[2026-03-15T15:53:30.278Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T15:53:30.281Z] [TX-COMMIT ] Route: PUT /password-recovery/:id | Recovery e8d4d2dd5dc80cb4e782 updated
+[2026-03-15T15:53:30.284Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T15:53:30.285Z] [TX-COMMIT ] Route: PUT /password-recovery/:id | Recovery e8d4d2dd5dc80cb4e782 updated
+[2026-03-15T15:53:30.287Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T15:53:30.289Z] [TX-COMMIT ] Route: PUT /password-recovery/:id | Recovery e8d4d2dd5dc80cb4e782 updated
+[2026-03-15T15:53:30.292Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-15T15:53:30.293Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Unauthorized: U002
+[2026-03-15T15:53:30.297Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T15:53:30.349Z] [INFO      ] Password updated for: victim.sadia@wps.com
+[2026-03-15T15:53:30.352Z] [TX-COMMIT ] Route: PUT /password-recovery/:id/reset-password | Password reset for victim.sadia@wps.com
+[2026-03-15T15:53:30.354Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U001
+[2026-03-15T15:53:30.355Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: e8d4d2dd5dc80cb4e782
+[2026-03-15T15:53:30.358Z] [TX-START  ] Route: PUT /password-recovery/:id | User: U001
+[2026-03-15T15:53:30.359Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id | Reason: Already processed: e8d4d2dd5dc80cb4e782
+[2026-03-15T15:53:30.361Z] [TX-START  ] Route: POST /password-recovery | User: victim.sadia@wps.com
+[2026-03-15T15:53:30.363Z] [INFO      ] Inserted Password_Recovery: d7553fbc58e31b68ce0d | User: victim.sadia@wps.com | Admin: U002
+[2026-03-15T15:53:30.365Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request d7553fbc58e31b68ce0d created
+[2026-03-15T15:53:30.367Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-15T15:53:30.369Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U002
+[2026-03-15T15:53:30.423Z] [INFO      ] Password updated for: victim.sadia@wps.com
+[2026-03-15T15:53:30.426Z] [TX-COMMIT ] Route: PUT /password-recovery/:id/reset-password | Password reset for victim.sadia@wps.com
+[2026-03-15T15:53:30.427Z] [TX-ROLLBACK] Route: PUT /password-recovery/:id/reset-password | Reason: Already processed: d7553fbc58e31b68ce0d
+[2026-03-15T15:53:30.429Z] [TX-START  ] Route: POST /password-recovery | User: victim.sadia@wps.com
+[2026-03-15T15:53:30.431Z] [INFO      ] Inserted Password_Recovery: 3eafac6e4f9a8ab30485 | User: victim.sadia@wps.com | Admin: U003
+[2026-03-15T15:53:30.433Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 3eafac6e4f9a8ab30485 created
+[2026-03-15T15:53:30.435Z] [TX-START  ] Route: POST /password-recovery | User: victim.sadia@wps.com
+[2026-03-15T15:53:30.437Z] [INFO      ] Inserted Password_Recovery: bca7afee34781c168f72 | User: victim.sadia@wps.com | Admin: U001
+[2026-03-15T15:53:30.439Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request bca7afee34781c168f72 created
+[2026-03-15T15:53:30.441Z] [TX-START  ] Route: POST /password-recovery | User: victim.sadia@wps.com
+[2026-03-15T15:53:30.444Z] [INFO      ] Inserted Password_Recovery: 5c43c4c570ac291d4718 | User: victim.sadia@wps.com | Admin: U002
+[2026-03-15T15:53:30.446Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 5c43c4c570ac291d4718 created
+[2026-03-15T15:53:30.448Z] [TX-START  ] Route: POST /password-recovery | User: victim.sadia@wps.com
+[2026-03-15T15:53:30.450Z] [INFO      ] Inserted Password_Recovery: 9089f47a3bd3a2b334b7 | User: victim.sadia@wps.com | Admin: U003
+[2026-03-15T15:53:30.452Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 9089f47a3bd3a2b334b7 created
+[2026-03-15T15:53:30.454Z] [TX-START  ] Route: DELETE /password-recovery/:id | User: U001
+[2026-03-15T15:53:30.457Z] [TX-COMMIT ] Route: DELETE /password-recovery/:id | Recovery 9089f47a3bd3a2b334b7 deleted
+[2026-03-15T15:53:30.459Z] [TX-START  ] Route: POST /password-recovery | User: victim.sadia@wps.com
+[2026-03-15T15:53:30.462Z] [INFO      ] Inserted Password_Recovery: 043f2600d4294a1b417b | User: victim.sadia@wps.com | Admin: U003
+[2026-03-15T15:53:30.463Z] [TX-COMMIT ] Route: POST /password-recovery | Recovery request 043f2600d4294a1b417b created
+[2026-03-15T15:53:30.465Z] [TX-START  ] Route: PUT /password-recovery/:id/reset-password | User: U003
+[2026-03-15T15:53:30.519Z] [INFO      ] Password updated for: victim.sadia@wps.com
+[2026-03-15T15:53:30.521Z] [TX-COMMIT ] Route: PUT /password-recovery/:id/reset-password | Password reset for victim.sadia@wps.com
