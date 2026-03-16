@@ -36,3 +36,1148 @@
 [2026-03-14T15:32:30.036Z] [SUCCESS   ] Login: U009 | Roles: Volunteer
 [2026-03-14T15:45:57.125Z] [TX-START  ] Route: PUT /volunteer/assignment/:id | User: U009
 [2026-03-14T15:45:57.135Z] [ERROR     ] Status update failed | Volunteer: U009 | Assignment: A001
+[2026-03-15T08:11:15.750Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:26:51.828Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:34:36.768Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:35:46.330Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:35:46.834Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:35:47.255Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 13:40:47 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T08:35:47.662Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:43:02.542Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:43:03.027Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:43:03.425Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 13:48:03 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T08:43:03.792Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:43:04.196Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T08:45:33.860Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:45:34.317Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:45:34.690Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 13:50:34 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T08:45:35.092Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:45:35.478Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T08:46:42.646Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:46:43.072Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:46:43.475Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 13:51:43 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T08:46:43.853Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:46:44.253Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T08:47:13.304Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T08:47:13.753Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:47:14.151Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 13:52:14 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T08:47:14.556Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T08:47:14.935Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T08:47:15.355Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T08:47:15.742Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:15.912Z] [SUCCESS   ] User created: c2f2cfa3df028db1 (Victim)
+[2026-03-15T08:47:15.913Z] [TX-COMMIT ] Route: CREATE_USER | User c2f2cfa3df028db1 created
+[2026-03-15T08:47:16.304Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:16.395Z] [SUCCESS   ] User created: f1de1a3b8f173762 (Volunteer)
+[2026-03-15T08:47:16.396Z] [TX-COMMIT ] Route: CREATE_USER | User f1de1a3b8f173762 created
+[2026-03-15T08:47:16.785Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:16.882Z] [SUCCESS   ] User created: a5ce380c74a3dda3 (Dispatcher)
+[2026-03-15T08:47:16.882Z] [TX-COMMIT ] Route: CREATE_USER | User a5ce380c74a3dda3 created
+[2026-03-15T08:47:17.285Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:17.369Z] [SUCCESS   ] User created: 42ebd25c85efabe7 (Admin)
+[2026-03-15T08:47:17.370Z] [TX-COMMIT ] Route: CREATE_USER | User 42ebd25c85efabe7 created
+[2026-03-15T08:47:17.736Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:17.738Z] [ERROR     ] CREATE_USER failed: Missing required fields. - Email: undefined, Role: Victim
+[2026-03-15T08:47:18.146Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:18.148Z] [ERROR     ] CREATE_USER failed: Date of birth cannot be today or in the future. - Email: future@test.com, Role: Victim
+[2026-03-15T08:47:18.552Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:18.553Z] [ERROR     ] CREATE_USER failed: Volunteer must be 18 years or older. Provided age: 11. - Email: young@test.com, Role: Volunteer
+[2026-03-15T08:47:18.938Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:18.939Z] [ERROR     ] CREATE_USER failed: Centre ID required for Dispatcher. - Email: nocentre@test.com, Role: Dispatcher
+[2026-03-15T08:47:19.352Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:19.355Z] [ERROR     ] CREATE_USER failed: Centre does not exist. - Email: badcentre@test.com, Role: Dispatcher
+[2026-03-15T08:47:19.736Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:19.740Z] [ERROR     ] CREATE_USER failed: A user with this email already exists. - Email: test.victim@test.com, Role: Victim
+[2026-03-15T08:47:20.106Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:20.108Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Email: badcnic@test.com, Role: Victim
+[2026-03-15T08:47:20.523Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T08:47:20.525Z] [ERROR     ] CREATE_USER failed: Emergency contact cannot be the same as personal phone number. - Email: samephone@test.com, Role: Victim
+[2026-03-15T08:47:20.922Z] [ERROR     ] UPDATE_USER failed: connection is not defined - Target: c2f2cfa3df028db1
+[2026-03-15T08:47:21.334Z] [ERROR     ] UPDATE_USER failed: connection is not defined - Target: c2f2cfa3df028db1
+[2026-03-15T08:47:21.738Z] [ERROR     ] UPDATE_USER failed: connection is not defined - Target: f1de1a3b8f173762
+[2026-03-15T08:47:22.153Z] [ERROR     ] UPDATE_USER failed: connection is not defined - Target: c2f2cfa3df028db1
+[2026-03-15T08:47:22.525Z] [ERROR     ] UPDATE_USER failed: connection is not defined - Target: c2f2cfa3df028db1
+[2026-03-15T08:47:23.321Z] [ERROR     ] GET_ALL_USERS_FAILED: Table 'u' was not locked with LOCK TABLES
+[2026-03-15T09:15:55.178Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T09:15:55.628Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:15:56.029Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 14:20:56 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T09:15:56.407Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:15:56.773Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T09:15:57.191Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T09:15:57.538Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:15:57.544Z] [ERROR     ] CREATE_USER failed: A user with this email already exists. - Email: test.victim@test.com, Role: Victim
+[2026-03-15T09:15:57.942Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:15:57.947Z] [ERROR     ] CREATE_USER failed: A user with this email already exists. - Email: test.volunteer@test.com, Role: Volunteer
+[2026-03-15T09:15:58.338Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:15:58.345Z] [ERROR     ] CREATE_USER failed: A user with this email already exists. - Email: test.dispatcher@test.com, Role: Dispatcher
+[2026-03-15T09:15:58.755Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:15:58.760Z] [ERROR     ] CREATE_USER failed: A user with this email already exists. - Email: test.admin2@test.com, Role: Admin
+[2026-03-15T09:15:59.153Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:15:59.156Z] [ERROR     ] CREATE_USER failed: Missing required fields. - Email: undefined, Role: Victim
+[2026-03-15T09:15:59.531Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:15:59.533Z] [ERROR     ] CREATE_USER failed: Date of birth cannot be today or in the future. - Email: future@test.com, Role: Victim
+[2026-03-15T09:15:59.966Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:15:59.969Z] [ERROR     ] CREATE_USER failed: Volunteer must be 18 years or older. Provided age: 11. - Email: young@test.com, Role: Volunteer
+[2026-03-15T09:16:00.372Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:16:00.375Z] [ERROR     ] CREATE_USER failed: Centre ID required for Dispatcher. - Email: nocentre@test.com, Role: Dispatcher
+[2026-03-15T09:16:00.755Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:16:00.762Z] [ERROR     ] CREATE_USER failed: Centre does not exist. - Email: badcentre@test.com, Role: Dispatcher
+[2026-03-15T09:16:01.153Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:16:01.156Z] [ERROR     ] CREATE_USER failed: A user with this email already exists. - Email: test.victim@test.com, Role: Victim
+[2026-03-15T09:16:01.552Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:16:01.557Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Email: badcnic@test.com, Role: Victim
+[2026-03-15T09:16:01.926Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:16:01.927Z] [ERROR     ] CREATE_USER failed: Emergency contact cannot be the same as personal phone number. - Email: samephone@test.com, Role: Victim
+[2026-03-15T09:16:04.647Z] [ERROR     ] GET_ALL_USERS_FAILED: object is not iterable (cannot read property Symbol(Symbol.iterator))
+[2026-03-15T09:32:16.070Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T09:32:16.558Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:32:16.955Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 14:37:16 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T09:32:17.370Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:32:17.783Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T09:32:18.202Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T09:32:18.607Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:19.029Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:19.436Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:19.838Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:20.247Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:20.666Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:21.068Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:21.470Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:21.863Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:22.279Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:22.682Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:23.102Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:32:26.084Z] [ERROR     ] GET_ALL_USERS_FAILED: object is not iterable (cannot read property Symbol(Symbol.iterator))
+[2026-03-15T09:39:04.364Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T09:39:04.792Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:39:05.176Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 14:44:05 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T09:39:05.592Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:39:05.989Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T09:39:06.403Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T09:39:06.817Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:07.370Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:07.873Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:08.382Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:08.885Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:09.286Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:09.700Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:10.111Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:10.518Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:10.910Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:11.311Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:11.688Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:39:12.247Z] [SUCCESS   ] User updated: 1d5e76e804c398aa
+[2026-03-15T09:39:12.640Z] [SUCCESS   ] User updated: 1d5e76e804c398aa
+[2026-03-15T09:39:13.044Z] [ERROR     ] UPDATE_USER failed: Volunteer must be 18 years or older. Provided age: 11. - Target: 227f049519bc5be5
+[2026-03-15T09:39:13.487Z] [SUCCESS   ] User updated: 1d5e76e804c398aa
+[2026-03-15T09:39:13.937Z] [SUCCESS   ] User updated: 1d5e76e804c398aa
+[2026-03-15T09:39:14.745Z] [ERROR     ] GET_ALL_USERS_FAILED: object is not iterable (cannot read property Symbol(Symbol.iterator))
+[2026-03-15T09:51:14.899Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T09:51:15.400Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:51:15.780Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 14:56:15 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T09:51:16.180Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T09:51:16.559Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T09:51:16.956Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T09:51:17.376Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:17.910Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:18.392Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:18.891Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:19.375Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:19.376Z] [ERROR     ] CREATE_USER failed: Missing required fields
+[2026-03-15T09:51:19.790Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:19.791Z] [ERROR     ] CREATE_USER failed: DOB cannot be future
+[2026-03-15T09:51:20.197Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:20.199Z] [ERROR     ] CREATE_USER failed: Volunteer must be 18+
+[2026-03-15T09:51:20.607Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:20.608Z] [ERROR     ] CREATE_USER failed: Centre required for Dispatcher
+[2026-03-15T09:51:21.014Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:21.017Z] [ERROR     ] CREATE_USER failed: Centre not found
+[2026-03-15T09:51:21.429Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:21.432Z] [ERROR     ] CREATE_USER failed: A user with this email already exists
+[2026-03-15T09:51:21.831Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:21.832Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T09:51:22.230Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T09:51:22.231Z] [ERROR     ] CREATE_USER failed: Emergency contact cannot be the same as personal phone number
+[2026-03-15T09:51:22.701Z] [SUCCESS   ] User updated: 7e35b9a7b3be8a0a
+[2026-03-15T09:51:23.100Z] [SUCCESS   ] User updated: 7e35b9a7b3be8a0a
+[2026-03-15T09:51:23.536Z] [ERROR     ] UPDATE_USER failed: Volunteer must be 18 years or older. Provided age: 11. - Target: 058d6bbe15eff508
+[2026-03-15T09:51:24.004Z] [SUCCESS   ] User updated: 7e35b9a7b3be8a0a
+[2026-03-15T09:51:24.403Z] [SUCCESS   ] User updated: 7e35b9a7b3be8a0a
+[2026-03-15T09:51:25.222Z] [ERROR     ] GET_ALL_USERS_FAILED: object is not iterable (cannot read property Symbol(Symbol.iterator))
+[2026-03-15T09:59:16.301Z] [INFO      ] GET_ALL_USERS - User: U001, Count: 44
+[2026-03-15T10:58:17.080Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T10:58:17.812Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-15T10:58:18.246Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 16:03:18 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T10:58:18.666Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T10:58:19.499Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T10:58:19.920Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: null
+[2026-03-15T10:58:20.321Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:21.016Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:21.320Z] [ERROR     ] CREATE_USER failed: Field 'Centre_id' doesn't have a default value
+[2026-03-15T10:58:21.730Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:22.287Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:22.872Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:22.877Z] [ERROR     ] CREATE_USER failed: Emergency contact cannot be the same as personal phone number
+[2026-03-15T10:58:23.297Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:23.302Z] [ERROR     ] CREATE_USER failed: A user with this email already exists
+[2026-03-15T10:58:23.690Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:23.843Z] [ERROR     ] CREATE_USER failed: Field 'Centre_id' doesn't have a default value
+[2026-03-15T10:58:24.262Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:24.265Z] [ERROR     ] CREATE_USER failed: Centre required for Dispatcher
+[2026-03-15T10:58:24.671Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:58:24.698Z] [ERROR     ] CREATE_USER failed: Admin must be 18+
+[2026-03-15T10:58:25.101Z] [INFO      ] GET_ALL_USERS - User: U001, Count: 43
+[2026-03-15T10:58:25.524Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"name":"Test"}, Results: 3
+[2026-03-15T10:58:25.971Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"role":"Victim"}, Results: 23
+[2026-03-15T10:58:26.379Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"phone":"03001110001"}, Results: 1
+[2026-03-15T10:58:26.864Z] [SUCCESS   ] User updated: 4f46180ac56a19c4
+[2026-03-15T10:58:27.360Z] [ERROR     ] UPDATE_USER failed: Field 'Centre_id' doesn't have a default value - Target: 4f46180ac56a19c4
+[2026-03-15T10:58:28.347Z] [INFO      ] DELETE_USER_CHECKS_PASSED - User: U001, Target: 4f46180ac56a19c4
+[2026-03-15T10:58:28.385Z] [SUCCESS   ] User deleted: 4f46180ac56a19c4
+[2026-03-15T10:58:29.260Z] [INFO      ] DELETE_USER_CHECKS_PASSED - User: U001, Target: 33dd19bb8bea8a3a
+[2026-03-15T10:58:29.285Z] [SUCCESS   ] User deleted: 33dd19bb8bea8a3a
+[2026-03-15T10:58:29.735Z] [INFO      ] DELETE_USER_CHECKS_PASSED - User: U001, Target: b878106c73efb513
+[2026-03-15T10:58:29.746Z] [SUCCESS   ] User deleted: b878106c73efb513
+[2026-03-15T10:58:30.312Z] [INFO      ] GET_TABLES - User: U001
+[2026-03-15T10:58:31.550Z] [INFO      ] VIEW_TABLE - User: U001, Table: User, Row Count: 40
+[2026-03-15T10:58:31.966Z] [INFO      ] VIEW_RECORD - User: U001, Table: User, ID: U001
+[2026-03-15T10:58:32.360Z] [INFO      ] VIEW_TABLE - User: U001, Table: Incident, Row Count: 20
+[2026-03-15T10:58:33.195Z] [SUCCESS   ] User updated: U001
+[2026-03-15T10:58:33.602Z] [SUCCESS   ] User updated: U001
+[2026-03-15T10:58:34.016Z] [SUCCESS   ] User updated: U001
+[2026-03-15T10:58:34.487Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Incident, ID: I001
+[2026-03-15T10:58:34.909Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Centre, ID: C001
+[2026-03-15T10:59:15.705Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T10:59:16.328Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-15T10:59:16.717Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 16:04:16 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T10:59:17.126Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T10:59:17.957Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T10:59:18.346Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: null
+[2026-03-15T10:59:18.750Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:19.376Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:19.922Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:20.442Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:21.026Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:21.058Z] [ERROR     ] CREATE_USER failed: Emergency contact cannot be the same as personal phone number
+[2026-03-15T10:59:21.466Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:21.472Z] [ERROR     ] CREATE_USER failed: A user with this email already exists
+[2026-03-15T10:59:21.878Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:21.881Z] [ERROR     ] CREATE_USER failed: Centre required for Volunteer
+[2026-03-15T10:59:22.275Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:22.278Z] [ERROR     ] CREATE_USER failed: Centre required for Dispatcher
+[2026-03-15T10:59:22.696Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T10:59:22.699Z] [ERROR     ] CREATE_USER failed: Admin must be 18+
+[2026-03-15T10:59:23.118Z] [INFO      ] GET_ALL_USERS - User: U001, Count: 44
+[2026-03-15T10:59:23.529Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"name":"Test"}, Results: 4
+[2026-03-15T10:59:23.947Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"role":"Victim"}, Results: 23
+[2026-03-15T10:59:24.358Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"phone":"03001110001"}, Results: 1
+[2026-03-15T10:59:24.792Z] [SUCCESS   ] User updated: da41292434996281
+[2026-03-15T10:59:25.218Z] [ERROR     ] UPDATE_USER failed: Field 'Centre_id' doesn't have a default value - Target: da41292434996281
+[2026-03-15T10:59:25.624Z] [SUCCESS   ] User updated: dc95240b1365584c
+[2026-03-15T10:59:26.065Z] [INFO      ] DELETE_USER_CHECKS_PASSED - User: U001, Target: da41292434996281
+[2026-03-15T10:59:26.080Z] [SUCCESS   ] User deleted: da41292434996281
+[2026-03-15T10:59:26.504Z] [INFO      ] DELETE_USER_CHECKS_PASSED - User: U001, Target: dc95240b1365584c
+[2026-03-15T10:59:26.514Z] [SUCCESS   ] User deleted: dc95240b1365584c
+[2026-03-15T10:59:26.924Z] [INFO      ] DELETE_USER_CHECKS_PASSED - User: U001, Target: bba7fb02382dc140
+[2026-03-15T10:59:26.937Z] [SUCCESS   ] User deleted: bba7fb02382dc140
+[2026-03-15T10:59:27.391Z] [INFO      ] DELETE_USER_CHECKS_PASSED - User: U001, Target: 5717ebfa883b20c3
+[2026-03-15T10:59:27.407Z] [SUCCESS   ] User deleted: 5717ebfa883b20c3
+[2026-03-15T10:59:27.883Z] [INFO      ] GET_TABLES - User: U001
+[2026-03-15T10:59:29.107Z] [INFO      ] VIEW_TABLE - User: U001, Table: User, Row Count: 40
+[2026-03-15T10:59:29.496Z] [INFO      ] VIEW_RECORD - User: U001, Table: User, ID: U001
+[2026-03-15T10:59:29.913Z] [INFO      ] VIEW_TABLE - User: U001, Table: Incident, Row Count: 20
+[2026-03-15T10:59:30.736Z] [SUCCESS   ] User updated: U001
+[2026-03-15T10:59:31.152Z] [SUCCESS   ] User updated: U001
+[2026-03-15T10:59:31.580Z] [SUCCESS   ] User updated: U001
+[2026-03-15T10:59:31.986Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Incident, ID: I001
+[2026-03-15T10:59:32.448Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Centre, ID: C001
+[2026-03-15T11:07:51.511Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T11:07:52.033Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-15T11:07:52.463Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 16:12:52 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T11:07:52.866Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T11:07:53.300Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T11:07:53.712Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:53.719Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:54.125Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:54.127Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:54.537Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:54.539Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:54.929Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:54.932Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:55.337Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:55.340Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:55.724Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:55.725Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:56.124Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:56.125Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:56.542Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:56.545Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:56.935Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:07:56.938Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:07:57.380Z] [INFO      ] GET_ALL_USERS - User: U001, Count: 40
+[2026-03-15T11:07:57.781Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"name":"Test"}, Results: 0
+[2026-03-15T11:07:58.198Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"role":"Volunteer"}, Results: 10
+[2026-03-15T11:07:58.628Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"from_date":"1990-01-01","to_date":"2000-01-01"}, Results: 28
+[2026-03-15T11:08:02.458Z] [INFO      ] GET_TABLES - User: U001
+[2026-03-15T11:08:03.647Z] [INFO      ] VIEW_TABLE - User: U001, Table: User, Row Count: 40
+[2026-03-15T11:08:04.050Z] [INFO      ] VIEW_RECORD - User: U001, Table: User, ID: U001
+[2026-03-15T11:08:04.912Z] [SUCCESS   ] User updated: U001
+[2026-03-15T11:08:05.345Z] [SUCCESS   ] User updated: U001
+[2026-03-15T11:08:05.783Z] [SUCCESS   ] User updated: U001
+[2026-03-15T11:08:06.209Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Incident, ID: I001
+[2026-03-15T11:08:06.619Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Centre, ID: C001
+[2026-03-15T11:22:37.708Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T11:22:38.284Z] [SUCCESS   ] Login: U002 | Roles: Admin
+[2026-03-15T11:22:38.688Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 16:27:38 GMT+0500 (Kazakhstan Time), Duration: 300000
+[2026-03-15T11:22:39.113Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T11:22:39.550Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T11:22:39.955Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:39.966Z] [ERROR     ] CREATE_USER failed: Phone number must be 10-11 digits
+[2026-03-15T11:22:40.396Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:40.397Z] [ERROR     ] CREATE_USER failed: Phone number must be 10-11 digits
+[2026-03-15T11:22:40.823Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:40.824Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:41.222Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:41.225Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:41.626Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:41.627Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:42.034Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:42.038Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:42.455Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:42.459Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:42.856Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:42.858Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:43.266Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:43.268Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:43.664Z] [TX-START  ] Route: CREATE_USER | User: U001
+[2026-03-15T11:22:43.665Z] [ERROR     ] CREATE_USER failed: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1).
+[2026-03-15T11:22:44.122Z] [INFO      ] GET_ALL_USERS - User: U001, Count: 40
+[2026-03-15T11:22:44.519Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"name":"Test"}, Results: 0
+[2026-03-15T11:22:44.951Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"role":"Volunteer"}, Results: 10
+[2026-03-15T11:22:45.362Z] [INFO      ] SEARCH_USERS - User: U001, Filters: {"from_date":"1990-01-01","to_date":"2000-01-01"}, Results: 28
+[2026-03-15T11:22:49.122Z] [INFO      ] GET_TABLES - User: U001
+[2026-03-15T11:22:50.294Z] [INFO      ] VIEW_TABLE - User: U001, Table: User, Row Count: 40
+[2026-03-15T11:22:50.714Z] [INFO      ] VIEW_RECORD - User: U001, Table: User, ID: U001
+[2026-03-15T11:22:51.549Z] [SUCCESS   ] User updated: U001
+[2026-03-15T11:22:51.960Z] [SUCCESS   ] User updated: U001
+[2026-03-15T11:22:52.391Z] [SUCCESS   ] User updated: U001
+[2026-03-15T11:22:52.811Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Incident, ID: I001
+[2026-03-15T11:22:53.205Z] [INFO      ] UPDATE_RECORD - User: U001, Table: Centre, ID: C001
+[2026-03-15T11:33:18.789Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T12:15:59.668Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T12:16:00.400Z] [SUCCESS   ] Login: U003 | Roles: Admin
+[2026-03-15T12:16:00.997Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T12:16:01.630Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 17:17:01 GMT+0500 (Kazakhstan Time)
+[2026-03-15T12:16:02.234Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 40
+[2026-03-15T12:16:02.846Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T12:16:03.428Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T12:16:04.032Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:16:04.206Z] [INFO      ] CREATE_USER_SUCCESS - User: 059921a00c68d8fe, Role: Victim, Admin: U001
+[2026-03-15T12:16:04.751Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T12:16:04.867Z] [INFO      ] CREATE_USER_SUCCESS - User: 200ccd956f9d295a, Role: Volunteer, Admin: U001
+[2026-03-15T12:16:05.478Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T12:16:05.559Z] [INFO      ] CREATE_USER_SUCCESS - User: a242c309ef947015, Role: Admin, Admin: U001
+[2026-03-15T12:16:06.149Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T12:16:06.248Z] [INFO      ] CREATE_USER_SUCCESS - User: 00bf0e9962b58145, Role: Dispatcher, Admin: U001
+[2026-03-15T12:16:06.836Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:16:06.837Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T12:16:07.444Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:16:07.446Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T12:16:08.035Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T12:16:08.037Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T12:16:08.669Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:16:08.671Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T12:16:09.237Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T12:16:09.239Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T12:16:09.845Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:16:09.851Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T12:16:10.476Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:16:10.479Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T12:16:11.141Z] [INFO      ] UPDATE_USER_SUCCESS - User: 059921a00c68d8fe, Admin: U001
+[2026-03-15T12:16:11.731Z] [INFO      ] UPDATE_USER_SUCCESS - User: 059921a00c68d8fe, Admin: U001
+[2026-03-15T12:16:12.334Z] [INFO      ] UPDATE_USER_SUCCESS - User: 200ccd956f9d295a, Admin: U001
+[2026-03-15T12:16:12.970Z] [INFO      ] UPDATE_USER_SUCCESS - User: 059921a00c68d8fe, Admin: U001
+[2026-03-15T12:16:13.556Z] [INFO      ] UPDATE_USER_SUCCESS - User: 059921a00c68d8fe, Admin: U001
+[2026-03-15T12:16:14.173Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 200ccd956f9d295a
+[2026-03-15T12:16:15.445Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T12:57:15.327Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T12:57:16.073Z] [SUCCESS   ] Login: U003 | Roles: Admin
+[2026-03-15T12:57:18.047Z] [INFO      ] GET_ALL_USERS - Admin: U003, Count: 44
+[2026-03-15T12:57:18.705Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T12:57:19.327Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 17:58:19 GMT+0500 (Kazakhstan Time)
+[2026-03-15T12:57:19.932Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T12:57:20.540Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T12:57:21.151Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T12:57:21.737Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:57:21.752Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T12:57:22.375Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T12:57:22.379Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T12:57:22.998Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T12:57:23.000Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T12:57:23.612Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T12:57:23.614Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T12:57:24.200Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T12:57:24.201Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T12:57:24.816Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:57:24.819Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T12:57:25.422Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T12:57:25.424Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T12:57:26.014Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:57:26.016Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T12:57:26.621Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T12:57:26.623Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T12:57:27.234Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:57:27.238Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T12:57:27.804Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T12:57:27.806Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T12:57:28.422Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T12:57:28.425Z] [ERROR     ] CREATE_USER_FAILED: Centre does not exist. - Admin: U001
+[2026-03-15T12:57:32.560Z] [INFO      ] UPDATE_USER_SUCCESS - User: U003, Admin: U001
+[2026-03-15T12:57:33.758Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T13:01:49.039Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T13:01:49.841Z] [SUCCESS   ] Login: U003 | Roles: Admin
+[2026-03-15T13:01:51.756Z] [INFO      ] GET_ALL_USERS - Admin: U003, Count: 40
+[2026-03-15T13:01:52.377Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:01:52.990Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 18:02:52 GMT+0500 (Kazakhstan Time)
+[2026-03-15T13:01:53.614Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:01:54.249Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T13:01:54.841Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T13:01:55.445Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:01:55.566Z] [INFO      ] CREATE_USER_SUCCESS - User: 022b8fdc9ec0acf3, Role: Victim, Admin: U001
+[2026-03-15T13:01:56.176Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:01:56.268Z] [INFO      ] CREATE_USER_SUCCESS - User: 3d34f1fb0838c5b6, Role: Volunteer, Admin: U001
+[2026-03-15T13:01:56.877Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T13:01:56.991Z] [INFO      ] CREATE_USER_SUCCESS - User: 6be3ff2ad47a5813, Role: Admin, Admin: U001
+[2026-03-15T13:01:57.610Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:01:57.678Z] [INFO      ] CREATE_USER_SUCCESS - User: e4d788d74a84cac0, Role: Dispatcher, Admin: U001
+[2026-03-15T13:01:58.282Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T13:01:58.285Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T13:01:58.878Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:01:58.879Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T13:01:59.486Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:01:59.488Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T13:02:00.080Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:02:00.082Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T13:02:00.694Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:02:00.698Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T13:02:01.298Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:02:01.303Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:02:01.914Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:02:01.916Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T13:02:02.511Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:02:02.514Z] [ERROR     ] CREATE_USER_FAILED: Centre does not exist. - Admin: U001
+[2026-03-15T13:02:03.215Z] [INFO      ] UPDATE_USER_SUCCESS - User: 022b8fdc9ec0acf3, Admin: U001
+[2026-03-15T13:02:03.888Z] [INFO      ] UPDATE_USER_SUCCESS - User: 022b8fdc9ec0acf3, Admin: U001
+[2026-03-15T13:02:04.493Z] [INFO      ] UPDATE_USER_SUCCESS - User: 3d34f1fb0838c5b6, Admin: U001
+[2026-03-15T13:02:05.112Z] [INFO      ] UPDATE_USER_SUCCESS - User: 022b8fdc9ec0acf3, Admin: U001
+[2026-03-15T13:02:05.735Z] [INFO      ] UPDATE_USER_SUCCESS - User: 022b8fdc9ec0acf3, Admin: U001
+[2026-03-15T13:02:06.339Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 3d34f1fb0838c5b6
+[2026-03-15T13:02:06.962Z] [INFO      ] UPDATE_USER_SUCCESS - User: U003, Admin: U001
+[2026-03-15T13:02:08.207Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T13:44:17.451Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T13:44:18.254Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T13:44:20.749Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:44:21.356Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 18:45:21 GMT+0500 (Kazakhstan Time)
+[2026-03-15T13:44:21.982Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:44:22.585Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T13:44:23.199Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T13:44:23.780Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:44:23.795Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:44:24.418Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:44:24.422Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:44:25.002Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T13:44:25.006Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:44:25.606Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:44:25.609Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:44:26.182Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T13:44:26.186Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T13:44:26.787Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:44:26.791Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T13:44:27.385Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:44:27.388Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T13:44:27.981Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:44:27.983Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T13:44:28.602Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:44:28.617Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T13:44:29.215Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:44:29.218Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:44:29.823Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:44:29.827Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T13:44:30.439Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:44:30.442Z] [ERROR     ] CREATE_USER_FAILED: Centre does not exist. - Admin: U001
+[2026-03-15T13:44:34.722Z] [ERROR     ] UPDATE_USER_FAILED: Centre does not exist. - Target: U004
+[2026-03-15T13:44:35.947Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T13:47:18.828Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T13:47:19.642Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T13:47:22.196Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:47:22.788Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 18:48:22 GMT+0500 (Kazakhstan Time)
+[2026-03-15T13:47:23.375Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:47:23.979Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T13:47:24.590Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T13:47:25.205Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:47:25.428Z] [INFO      ] CREATE_USER_SUCCESS - User: 5e139dc86871c619, Role: Victim, Admin: U001
+[2026-03-15T13:47:26.019Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:47:26.191Z] [INFO      ] CREATE_USER_SUCCESS - User: 2c1354e9c4b9e63b, Role: Volunteer, Admin: U001
+[2026-03-15T13:47:26.790Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T13:47:26.953Z] [INFO      ] CREATE_USER_SUCCESS - User: 03db94f6eb9871f8, Role: Admin, Admin: U001
+[2026-03-15T13:47:27.574Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:47:27.728Z] [INFO      ] CREATE_USER_SUCCESS - User: f03a482e05587640, Role: Dispatcher, Admin: U001
+[2026-03-15T13:47:28.342Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T13:47:28.345Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T13:47:28.940Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:47:28.943Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T13:47:29.551Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:47:29.556Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T13:47:30.156Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:47:30.158Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T13:47:30.737Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:47:30.740Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T13:47:31.356Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:47:31.360Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:47:31.958Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:47:31.962Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T13:47:32.544Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:47:32.551Z] [ERROR     ] CREATE_USER_FAILED: Centre does not exist. - Admin: U001
+[2026-03-15T13:47:33.189Z] [INFO      ] UPDATE_USER_SUCCESS - User: 5e139dc86871c619, Admin: U001
+[2026-03-15T13:47:33.818Z] [INFO      ] UPDATE_USER_SUCCESS - User: 5e139dc86871c619, Admin: U001
+[2026-03-15T13:47:34.401Z] [INFO      ] UPDATE_USER_SUCCESS - User: 2c1354e9c4b9e63b, Admin: U001
+[2026-03-15T13:47:35.042Z] [INFO      ] UPDATE_USER_SUCCESS - User: 5e139dc86871c619, Admin: U001
+[2026-03-15T13:47:35.710Z] [INFO      ] UPDATE_USER_SUCCESS - User: 5e139dc86871c619, Admin: U001
+[2026-03-15T13:47:36.313Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 2c1354e9c4b9e63b
+[2026-03-15T13:47:36.917Z] [ERROR     ] UPDATE_USER_FAILED: Centre does not exist. - Target: U004
+[2026-03-15T13:47:38.143Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T13:57:33.130Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T13:57:33.852Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T13:57:36.319Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:57:36.917Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 18:58:36 GMT+0500 (Kazakhstan Time)
+[2026-03-15T13:57:37.513Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T13:57:38.121Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T13:57:38.704Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T13:57:39.307Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:57:39.434Z] [INFO      ] CREATE_USER_SUCCESS - User: 1f6bb7a6dbeeeaea, Role: Victim, Admin: U001
+[2026-03-15T13:57:40.040Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:57:40.114Z] [INFO      ] CREATE_USER_SUCCESS - User: 6e1da5ef7f72c4cd, Role: Volunteer, Admin: U001
+[2026-03-15T13:57:40.713Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T13:57:40.845Z] [INFO      ] CREATE_USER_SUCCESS - User: aabbf503c942a744, Role: Admin, Admin: U001
+[2026-03-15T13:57:41.428Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:57:41.514Z] [INFO      ] CREATE_USER_SUCCESS - User: 10da4957e3d069b0, Role: Dispatcher, Admin: U001
+[2026-03-15T13:57:42.146Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T13:57:42.147Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T13:57:42.749Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:57:42.752Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T13:57:43.376Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T13:57:43.379Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T13:57:43.957Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:57:43.962Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T13:57:44.553Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:57:44.555Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T13:57:45.124Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:57:45.127Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T13:57:45.715Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T13:57:45.718Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T13:57:46.324Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T13:57:46.327Z] [ERROR     ] CREATE_USER_FAILED: Centre does not exist. - Admin: U001
+[2026-03-15T13:57:46.931Z] [INFO      ] UPDATE_USER_SUCCESS - User: 1f6bb7a6dbeeeaea, Admin: U001
+[2026-03-15T13:57:47.536Z] [INFO      ] UPDATE_USER_SUCCESS - User: 1f6bb7a6dbeeeaea, Admin: U001
+[2026-03-15T13:57:48.137Z] [INFO      ] UPDATE_USER_SUCCESS - User: 6e1da5ef7f72c4cd, Admin: U001
+[2026-03-15T13:57:48.782Z] [INFO      ] UPDATE_USER_SUCCESS - User: 1f6bb7a6dbeeeaea, Admin: U001
+[2026-03-15T13:57:49.409Z] [INFO      ] UPDATE_USER_SUCCESS - User: 1f6bb7a6dbeeeaea, Admin: U001
+[2026-03-15T13:57:49.998Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 6e1da5ef7f72c4cd
+[2026-03-15T13:57:50.582Z] [ERROR     ] UPDATE_USER_FAILED: Centre does not exist. - Target: U004
+[2026-03-15T13:57:51.805Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T13:58:14.026Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T13:58:37.007Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Centre, ID: C001
+[2026-03-15T13:59:43.435Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: User, Rows: 44
+[2026-03-15T14:00:41.081Z] [INFO      ] DELETE_USER_SUCCESS - User: aabbf503c942a744, Name: Test Admin Two WPS, Admin: U001
+[2026-03-15T14:00:41.550Z] [ERROR     ] DELETE_USER_FAILED: Cannot delete or update a parent row: a foreign key constraint fails (`womenprotectionservicesdb`.`password_recovery`, CONSTRAINT `password_recovery_ibfk_1` FOREIGN KEY (`Admin_id`) REFERENCES `admin` (`User_id`)) - Target: U001
+[2026-03-15T14:01:33.199Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T14:01:33.635Z] [INFO      ] DISPATCHER_AVAILABILITY - User: U004 set to Yes
+[2026-03-15T14:02:22.808Z] [INFO      ] CALL_LOGGED - Request: 7ffe97c22be512197c7a, Victim: 1f6bb7a6dbeeeaea, Dispatcher: U004
+[2026-03-15T14:02:23.250Z] [INFO      ] GET_CALLS - User: U004, Count: 5
+[2026-03-15T14:02:24.442Z] [ERROR     ] CALL_LOG_FAILED: victim_id, note, and location are all required.
+[2026-03-15T14:02:24.830Z] [ERROR     ] CALL_LOG_FAILED: Invalid type. Use: False, Emergency, Query
+[2026-03-15T14:03:35.048Z] [ERROR     ] INCIDENT_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:03:36.891Z] [ERROR     ] INCIDENT_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:03:37.290Z] [ERROR     ] INCIDENT_CREATE_FAILED: Invalid emergency type. Options: Domestic Violence, Sexual Assault, Harassment, Kidnapping, Stalking, Medical Emergency
+[2026-03-15T14:05:14.436Z] [ERROR     ] ASSIGNMENT_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:05:15.679Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T14:05:51.898Z] [ERROR     ] CALL_LOG_FAILED: Your availability is set to No. Update it first using PUT /availability.
+[2026-03-15T14:05:52.315Z] [ERROR     ] INCIDENT_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:05:52.729Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 19:07:52 GMT+0500 (Kazakhstan Time)
+[2026-03-15T14:05:53.908Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T14:06:27.366Z] [INFO      ] ADMIN_LOCK_RELEASED - Admin: U001 released lock on Incident: null
+[2026-03-15T14:07:06.192Z] [ERROR     ] LAW_CASE_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:07:07.477Z] [ERROR     ] LAW_CASE_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:07:07.871Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Invalid case_type. Use: Support, Penalty
+[2026-03-15T14:07:38.117Z] [ERROR     ] ASSIGNMENT_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:07:38.561Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:07:39.711Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: getAdminLockState is not a function
+[2026-03-15T14:08:36.563Z] [INFO      ] DELETE_USER_SUCCESS - User: 6e1da5ef7f72c4cd, Name: Test Volunteer WPS, Admin: U001
+[2026-03-15T14:08:36.948Z] [INFO      ] DELETE_USER_SUCCESS - User: 10da4957e3d069b0, Name: Test Dispatcher Two WPS, Admin: U001
+[2026-03-15T14:37:09.824Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T14:37:10.569Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T14:37:13.059Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:37:13.669Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 19:38:13 GMT+0500 (Kazakhstan Time)
+[2026-03-15T14:37:14.273Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:37:14.899Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T14:37:15.474Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T14:37:16.088Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:37:16.301Z] [INFO      ] CREATE_USER_SUCCESS - User: 621f5162a170129b, Role: Victim, Admin: U001
+[2026-03-15T14:37:16.898Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:37:17.046Z] [INFO      ] CREATE_USER_SUCCESS - User: 97ba8128b7f21780, Role: Volunteer, Admin: U001
+[2026-03-15T14:37:17.657Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T14:37:17.759Z] [INFO      ] CREATE_USER_SUCCESS - User: 8d621310855978c4, Role: Admin, Admin: U001
+[2026-03-15T14:37:18.372Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:37:18.461Z] [INFO      ] CREATE_USER_SUCCESS - User: c8a6a39a5e870240, Role: Dispatcher, Admin: U001
+[2026-03-15T14:37:19.057Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T14:37:19.058Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T14:37:19.673Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:37:19.674Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T14:37:20.291Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:37:20.293Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T14:37:20.899Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:37:20.902Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T14:37:21.512Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:37:21.514Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T14:37:22.114Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:37:22.118Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:37:22.715Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:37:22.717Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T14:37:23.360Z] [INFO      ] UPDATE_USER_SUCCESS - User: 621f5162a170129b, Admin: U001
+[2026-03-15T14:37:23.982Z] [INFO      ] UPDATE_USER_SUCCESS - User: 621f5162a170129b, Admin: U001
+[2026-03-15T14:37:24.598Z] [INFO      ] UPDATE_USER_SUCCESS - User: 97ba8128b7f21780, Admin: U001
+[2026-03-15T14:37:25.199Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 97ba8128b7f21780
+[2026-03-15T14:37:25.829Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T14:38:18.081Z] [INFO      ] DELETE_USER_SUCCESS - User: 8d621310855978c4, Name: Test Admin Two WPS, Admin: U001
+[2026-03-15T14:38:18.619Z] [ERROR     ] DELETE_USER_FAILED: Cannot delete or update a parent row: a foreign key constraint fails (`womenprotectionservicesdb`.`password_recovery`, CONSTRAINT `password_recovery_ibfk_1` FOREIGN KEY (`Admin_id`) REFERENCES `admin` (`User_id`)) - Target: U001
+[2026-03-15T14:42:34.752Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T14:42:35.335Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T14:42:37.018Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:42:37.419Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 19:43:37 GMT+0500 (Kazakhstan Time)
+[2026-03-15T14:42:37.819Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:42:38.232Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T14:42:38.628Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T14:42:39.039Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:42:39.167Z] [INFO      ] CREATE_USER_SUCCESS - User: 11d794710db00a44, Role: Victim, Admin: U001
+[2026-03-15T14:42:39.575Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:42:39.668Z] [INFO      ] CREATE_USER_SUCCESS - User: fb487bcc31d23966, Role: Volunteer, Admin: U001
+[2026-03-15T14:42:40.057Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T14:42:40.143Z] [INFO      ] CREATE_USER_SUCCESS - User: b4442cb11e6c2603, Role: Admin, Admin: U001
+[2026-03-15T14:42:40.529Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:42:40.640Z] [INFO      ] CREATE_USER_SUCCESS - User: 199417e63670184f, Role: Dispatcher, Admin: U001
+[2026-03-15T14:42:41.032Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T14:42:41.033Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T14:42:41.431Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:42:41.432Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T14:42:41.865Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:42:41.868Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T14:42:42.260Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:42:42.262Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T14:42:42.635Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:42:42.639Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T14:42:43.050Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:42:43.053Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:42:43.465Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:42:43.466Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T14:42:43.920Z] [INFO      ] UPDATE_USER_SUCCESS - User: 11d794710db00a44, Admin: U001
+[2026-03-15T14:42:44.319Z] [INFO      ] UPDATE_USER_SUCCESS - User: 11d794710db00a44, Admin: U001
+[2026-03-15T14:42:44.714Z] [INFO      ] UPDATE_USER_SUCCESS - User: fb487bcc31d23966, Admin: U001
+[2026-03-15T14:42:45.123Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: fb487bcc31d23966
+[2026-03-15T14:42:45.544Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T14:44:40.856Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T14:44:41.612Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T14:44:44.174Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:44:44.786Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 19:45:44 GMT+0500 (Kazakhstan Time)
+[2026-03-15T14:44:45.429Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:44:46.066Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T14:44:46.691Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T14:44:47.283Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:44:47.491Z] [INFO      ] CREATE_USER_SUCCESS - User: a9d0a2024efc84a8, Role: Victim, Admin: U001
+[2026-03-15T14:44:48.095Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:44:48.324Z] [INFO      ] CREATE_USER_SUCCESS - User: 3134d2bc7c14067e, Role: Volunteer, Admin: U001
+[2026-03-15T14:44:48.908Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T14:44:49.133Z] [INFO      ] CREATE_USER_SUCCESS - User: 78e03f5250cd4ba8, Role: Admin, Admin: U001
+[2026-03-15T14:44:49.754Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:44:49.973Z] [INFO      ] CREATE_USER_SUCCESS - User: cab5b4de09cba955, Role: Dispatcher, Admin: U001
+[2026-03-15T14:44:50.598Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T14:44:50.601Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T14:44:51.213Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:44:51.217Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T14:44:51.866Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:44:51.874Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T14:44:52.495Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:44:52.499Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T14:44:53.108Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:44:53.114Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T14:44:53.702Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:44:53.708Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:44:54.353Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:44:54.362Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T14:44:55.005Z] [INFO      ] UPDATE_USER_SUCCESS - User: a9d0a2024efc84a8, Admin: U001
+[2026-03-15T14:44:55.615Z] [INFO      ] UPDATE_USER_SUCCESS - User: a9d0a2024efc84a8, Admin: U001
+[2026-03-15T14:44:56.238Z] [INFO      ] UPDATE_USER_SUCCESS - User: 3134d2bc7c14067e, Admin: U001
+[2026-03-15T14:44:56.849Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 3134d2bc7c14067e
+[2026-03-15T14:44:57.499Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T14:54:25.928Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T14:54:26.912Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T14:54:29.660Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:54:30.284Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 19:55:30 GMT+0500 (Kazakhstan Time)
+[2026-03-15T14:54:30.921Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:54:31.567Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T14:54:32.227Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T14:54:32.852Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:54:33.160Z] [INFO      ] CREATE_USER_SUCCESS - User: 8501b1cd2d2c34a2, Role: Victim, Admin: U001
+[2026-03-15T14:54:33.822Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:54:34.060Z] [INFO      ] CREATE_USER_SUCCESS - User: f428825b8b51d152, Role: Volunteer, Admin: U001
+[2026-03-15T14:54:34.661Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T14:54:34.880Z] [INFO      ] CREATE_USER_SUCCESS - User: 1aecd5c18c8b05eb, Role: Admin, Admin: U001
+[2026-03-15T14:54:35.512Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:54:35.739Z] [INFO      ] CREATE_USER_SUCCESS - User: 74c78f0b66c962cf, Role: Dispatcher, Admin: U001
+[2026-03-15T14:54:36.359Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T14:54:36.362Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T14:54:36.965Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:54:36.971Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T14:54:37.644Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:54:37.648Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T14:54:38.225Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:54:38.228Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T14:54:38.812Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:54:38.816Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T14:54:39.419Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:54:39.424Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:54:40.021Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:54:40.024Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T14:54:40.690Z] [INFO      ] UPDATE_USER_SUCCESS - User: 8501b1cd2d2c34a2, Admin: U001
+[2026-03-15T14:54:41.294Z] [INFO      ] UPDATE_USER_SUCCESS - User: 8501b1cd2d2c34a2, Admin: U001
+[2026-03-15T14:54:41.901Z] [INFO      ] UPDATE_USER_SUCCESS - User: f428825b8b51d152, Admin: U001
+[2026-03-15T14:54:42.511Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: f428825b8b51d152
+[2026-03-15T14:54:43.144Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T14:59:27.869Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T14:59:28.816Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T14:59:31.433Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:59:32.082Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 20:00:32 GMT+0500 (Kazakhstan Time)
+[2026-03-15T14:59:32.703Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T14:59:33.311Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T14:59:33.944Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T14:59:34.554Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:59:34.569Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:59:35.189Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:59:35.201Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:59:35.787Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T14:59:35.794Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:59:36.404Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:59:36.409Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:59:37.024Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T14:59:37.027Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T14:59:37.659Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:59:37.662Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T14:59:38.293Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T14:59:38.296Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T14:59:38.886Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:59:38.888Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T14:59:39.492Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T14:59:39.495Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T14:59:40.104Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:59:40.109Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T14:59:40.674Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T14:59:40.678Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T14:59:43.776Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T14:59:44.473Z] [INFO      ] SEARCH_USERS - Admin: U001, Results: 23
+[2026-03-15T14:59:47.131Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Centre, ID: C001
+[2026-03-15T14:59:49.049Z] [ERROR     ] DELETE_USER_FAILED: Cannot delete: This admin is referenced in password recovery records. Reassign or resolve those records first. - Target: U001
+[2026-03-15T14:59:50.347Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T14:59:50.980Z] [INFO      ] DISPATCHER_AVAILABILITY - User: U004 set to Yes
+[2026-03-15T14:59:53.492Z] [INFO      ] EMERGENCY_VICTIM_CREATED - Victim: 88f5adb281f7d99cf6a2
+[2026-03-15T14:59:53.506Z] [INFO      ] VICTIM_PROCESSED - Victim: 88f5adb281f7d99cf6a2, Dispatcher: U004
+[2026-03-15T14:59:54.759Z] [INFO      ] VICTIM_UPDATED - Victim: 88f5adb281f7d99cf6a2, Dispatcher: U004
+[2026-03-15T14:59:55.380Z] [INFO      ] CALL_LOGGED - Request: b73b74b69be93f692bc9, Victim: 88f5adb281f7d99cf6a2, Dispatcher: U004
+[2026-03-15T14:59:55.997Z] [INFO      ] GET_CALLS - User: U004, Count: 5
+[2026-03-15T14:59:57.271Z] [INFO      ] CALL_UPDATED - Request: b73b74b69be93f692bc9, Dispatcher: U004
+[2026-03-15T14:59:57.891Z] [ERROR     ] CALL_LOG_FAILED: victim_id, note, and location are all required.
+[2026-03-15T14:59:58.550Z] [INFO      ] INCIDENT_CREATED - Incident: d452eef30cd6fc493cfa, Request: b73b74b69be93f692bc9, Dispatcher: U004
+[2026-03-15T15:00:00.407Z] [INFO      ] INCIDENT_UPDATED - Incident: d452eef30cd6fc493cfa, Dispatcher: U004
+[2026-03-15T15:00:01.027Z] [ERROR     ] INCIDENT_CREATE_FAILED: An incident already exists for this request.
+[2026-03-15T15:00:02.268Z] [ERROR     ] VOLUNTEER_ASSIGN_FAILED: Volunteer null not found.
+[2026-03-15T15:00:02.850Z] [ERROR     ] VOLUNTEER_ASSIGN_FAILED: Volunteer null not found.
+[2026-03-15T15:00:04.698Z] [ERROR     ] ASSIGNMENT_CREATE_FAILED: An assignment already exists for this incident. Use PUT /assignment/:id to update.
+[2026-03-15T15:00:06.489Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T15:00:07.103Z] [INFO      ] CALL_LOGGED - Request: 5bb6f18256acbe4783f5, Victim: 88f5adb281f7d99cf6a2, Dispatcher: U004
+[2026-03-15T15:00:07.757Z] [INFO      ] INCIDENT_CREATED - Incident: d96ef62b489d739197fe, Request: 5bb6f18256acbe4783f5, Dispatcher: U004
+[2026-03-15T15:00:08.373Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 20:02:08 GMT+0500 (Kazakhstan Time)
+[2026-03-15T15:00:09.590Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: d96ef62b489d739197fe
+[2026-03-15T15:00:10.174Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T15:00:10.809Z] [INFO      ] INCIDENT_UPDATED - Incident: d96ef62b489d739197fe, Dispatcher: U004
+[2026-03-15T15:00:11.415Z] [INFO      ] ADMIN_TAKEOVER - Admin: U001 took over Incident: d96ef62b489d739197fe from Dispatcher: Dispatcher Hina Shah (U004)
+[2026-03-15T15:00:12.079Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: d96ef62b489d739197fe
+[2026-03-15T15:00:12.667Z] [INFO      ] ADMIN_LOCK_RELEASED - Admin: U001 released lock on Incident: d96ef62b489d739197fe
+[2026-03-15T15:00:13.283Z] [INFO      ] INCIDENT_UPDATED - Incident: d96ef62b489d739197fe, Dispatcher: U004
+[2026-03-15T15:00:15.090Z] [INFO      ] LAW_CASE_CREATED - Case: 558b4e219c0f567a6e81, Incident: d96ef62b489d739197fe, Type: Penalty, Dispatcher: U004
+[2026-03-15T15:00:16.381Z] [INFO      ] LAW_CASE_UPDATED - Case: 558b4e219c0f567a6e81, Dispatcher: U004
+[2026-03-15T15:00:16.980Z] [ERROR     ] LAW_CASE_CREATE_FAILED: A law case already exists for this incident.
+[2026-03-15T15:00:17.574Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Invalid case_type. Use: Support, Penalty
+[2026-03-15T15:00:18.187Z] [INFO      ] ASSIGNMENT_CREATED - Assignment: 9fab589eafc09922a90b, Incident: d96ef62b489d739197fe, Dispatcher: U004
+[2026-03-15T15:00:18.807Z] [INFO      ] FOLLOWUP_CREATED - Follow-up: ec2fed17b4b1fc67628b, Assignment: 9fab589eafc09922a90b, Dispatcher: U004
+[2026-03-15T15:00:20.005Z] [INFO      ] FOLLOWUP_UPDATED - Follow-up: ec2fed17b4b1fc67628b, Dispatcher: U004
+[2026-03-15T15:00:20.628Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: Follow-up support already exists for this assignment.
+[2026-03-15T15:01:26.822Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T15:01:27.531Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T15:01:30.048Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T15:01:30.661Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 20:02:30 GMT+0500 (Kazakhstan Time)
+[2026-03-15T15:01:31.256Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T15:01:31.853Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T15:01:32.444Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T15:01:33.047Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:01:33.211Z] [INFO      ] CREATE_USER_SUCCESS - User: 13b01398cc283c7f, Role: Victim, Admin: U001
+[2026-03-15T15:01:33.802Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T15:01:33.924Z] [INFO      ] CREATE_USER_SUCCESS - User: 169aa8d87dac7332, Role: Volunteer, Admin: U001
+[2026-03-15T15:01:34.539Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T15:01:34.653Z] [INFO      ] CREATE_USER_SUCCESS - User: 96302ad58884b681, Role: Admin, Admin: U001
+[2026-03-15T15:01:35.288Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T15:01:35.386Z] [INFO      ] CREATE_USER_SUCCESS - User: 0ee2d721b88ddf19, Role: Dispatcher, Admin: U001
+[2026-03-15T15:01:36.001Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T15:01:36.004Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T15:01:36.605Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:01:36.608Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T15:01:37.205Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T15:01:37.208Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T15:01:37.808Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:01:37.811Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T15:01:38.435Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T15:01:38.438Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T15:01:39.045Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:01:39.049Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T15:01:39.661Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:01:39.664Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T15:01:40.297Z] [INFO      ] UPDATE_USER_SUCCESS - User: 13b01398cc283c7f, Admin: U001
+[2026-03-15T15:01:40.943Z] [INFO      ] UPDATE_USER_SUCCESS - User: 13b01398cc283c7f, Admin: U001
+[2026-03-15T15:01:41.543Z] [INFO      ] UPDATE_USER_SUCCESS - User: 169aa8d87dac7332, Admin: U001
+[2026-03-15T15:01:42.159Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 169aa8d87dac7332
+[2026-03-15T15:01:42.765Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T15:01:43.382Z] [INFO      ] SEARCH_USERS - Admin: U001, Results: 23
+[2026-03-15T15:01:44.600Z] [INFO      ] VIEW_RECORD - Admin: U001, Table: User, ID: 13b01398cc283c7f
+[2026-03-15T15:01:45.886Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Centre, ID: C001
+[2026-03-15T15:01:47.148Z] [INFO      ] DELETE_USER_SUCCESS - User: 96302ad58884b681, Name: Test Admin Two WPS, Admin: U001
+[2026-03-15T15:01:47.749Z] [ERROR     ] DELETE_USER_FAILED: Cannot delete: This admin is referenced in password recovery records. Reassign or resolve those records first. - Target: U001
+[2026-03-15T15:01:48.958Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T15:01:49.569Z] [INFO      ] DISPATCHER_AVAILABILITY - User: U004 set to Yes
+[2026-03-15T15:01:52.017Z] [INFO      ] EMERGENCY_VICTIM_CREATED - Victim: 5f8f606ee000c1c4371f
+[2026-03-15T15:01:52.029Z] [INFO      ] VICTIM_PROCESSED - Victim: 5f8f606ee000c1c4371f, Dispatcher: U004
+[2026-03-15T15:01:53.232Z] [INFO      ] VICTIM_UPDATED - Victim: 5f8f606ee000c1c4371f, Dispatcher: U004
+[2026-03-15T15:01:53.886Z] [INFO      ] CALL_LOGGED - Request: 0e29685d41669e3dc948, Victim: 5f8f606ee000c1c4371f, Dispatcher: U004
+[2026-03-15T15:01:54.488Z] [INFO      ] GET_CALLS - User: U004, Count: 5
+[2026-03-15T15:01:55.729Z] [INFO      ] CALL_UPDATED - Request: 0e29685d41669e3dc948, Dispatcher: U004
+[2026-03-15T15:01:56.356Z] [ERROR     ] CALL_LOG_FAILED: victim_id, note, and location are all required.
+[2026-03-15T15:01:57.018Z] [INFO      ] INCIDENT_CREATED - Incident: 1ab921cd67d2c16434db, Request: 0e29685d41669e3dc948, Dispatcher: U004
+[2026-03-15T15:01:58.870Z] [INFO      ] INCIDENT_UPDATED - Incident: 1ab921cd67d2c16434db, Dispatcher: U004
+[2026-03-15T15:01:59.466Z] [ERROR     ] INCIDENT_CREATE_FAILED: An incident already exists for this request.
+[2026-03-15T15:02:00.737Z] [INFO      ] VOLUNTEER_LOCKED_AND_ASSIGNED - Volunteer: 169aa8d87dac7332, Assignment: 68f547c9c0b318c20fe9
+[2026-03-15T15:02:00.739Z] [INFO      ] VOLUNTEERS_ASSIGNED - Incident: 1ab921cd67d2c16434db, Volunteers: 169aa8d87dac7332, Dispatcher: U004
+[2026-03-15T15:02:01.371Z] [ERROR     ] VOLUNTEER_ASSIGN_FAILED: Volunteer 169aa8d87dac7332 is no longer available (availability changed before lock was acquired).
+[2026-03-15T15:02:03.199Z] [ERROR     ] ASSIGNMENT_CREATE_FAILED: An assignment already exists for this incident. Use PUT /assignment/:id to update.
+[2026-03-15T15:02:03.823Z] [INFO      ] ASSIGNMENT_UPDATED - Assignment: 68f547c9c0b318c20fe9, Status: Completed, Dispatcher: U004
+[2026-03-15T15:02:05.017Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T15:02:05.655Z] [INFO      ] CALL_LOGGED - Request: 96c799aa649aa81622b9, Victim: 5f8f606ee000c1c4371f, Dispatcher: U004
+[2026-03-15T15:02:06.301Z] [INFO      ] INCIDENT_CREATED - Incident: a5373bad253b801d0114, Request: 96c799aa649aa81622b9, Dispatcher: U004
+[2026-03-15T15:02:06.916Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 20:04:06 GMT+0500 (Kazakhstan Time)
+[2026-03-15T15:02:08.174Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: a5373bad253b801d0114
+[2026-03-15T15:02:08.803Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T15:02:09.433Z] [INFO      ] INCIDENT_UPDATED - Incident: a5373bad253b801d0114, Dispatcher: U004
+[2026-03-15T15:02:10.057Z] [INFO      ] ADMIN_TAKEOVER - Admin: U001 took over Incident: a5373bad253b801d0114 from Dispatcher: Dispatcher Hina Shah (U004)
+[2026-03-15T15:02:10.660Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: a5373bad253b801d0114
+[2026-03-15T15:02:11.262Z] [INFO      ] ADMIN_LOCK_RELEASED - Admin: U001 released lock on Incident: a5373bad253b801d0114
+[2026-03-15T15:02:11.892Z] [INFO      ] INCIDENT_UPDATED - Incident: a5373bad253b801d0114, Dispatcher: U004
+[2026-03-15T15:02:13.771Z] [INFO      ] LAW_CASE_CREATED - Case: 80111ff6f4c14ef73bcb, Incident: a5373bad253b801d0114, Type: Penalty, Dispatcher: U004
+[2026-03-15T15:02:14.995Z] [INFO      ] LAW_CASE_UPDATED - Case: 80111ff6f4c14ef73bcb, Dispatcher: U004
+[2026-03-15T15:02:15.586Z] [ERROR     ] LAW_CASE_CREATE_FAILED: A law case already exists for this incident.
+[2026-03-15T15:02:16.200Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Invalid case_type. Use: Support, Penalty
+[2026-03-15T15:02:16.793Z] [INFO      ] ASSIGNMENT_CREATED - Assignment: 9a34a359ba535a1e7fdc, Incident: a5373bad253b801d0114, Dispatcher: U004
+[2026-03-15T15:02:17.436Z] [INFO      ] FOLLOWUP_CREATED - Follow-up: fbb979ec6d65d41314c6, Assignment: 9a34a359ba535a1e7fdc, Dispatcher: U004
+[2026-03-15T15:02:18.643Z] [INFO      ] FOLLOWUP_UPDATED - Follow-up: fbb979ec6d65d41314c6, Dispatcher: U004
+[2026-03-15T15:02:19.238Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: Follow-up support already exists for this assignment.
+[2026-03-15T15:02:20.460Z] [INFO      ] DELETE_USER_SUCCESS - User: 169aa8d87dac7332, Name: Test Volunteer WPS, Admin: U001
+[2026-03-15T15:02:21.049Z] [INFO      ] DELETE_USER_SUCCESS - User: 0ee2d721b88ddf19, Name: Test Dispatcher Two WPS, Admin: U001
+[2026-03-15T15:10:57.366Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-15T15:10:58.199Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-15T15:11:00.810Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T15:11:01.414Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 20:12:01 GMT+0500 (Kazakhstan Time)
+[2026-03-15T15:11:02.040Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-15T15:11:02.632Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-15T15:11:03.231Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-15T15:11:03.831Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:11:04.088Z] [INFO      ] CREATE_USER_SUCCESS - User: 6e01aa6d5ebd07e5, Role: Victim, Admin: U001
+[2026-03-15T15:11:04.691Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T15:11:04.866Z] [INFO      ] CREATE_USER_SUCCESS - User: dad8f8130b7e8e2e, Role: Volunteer, Admin: U001
+[2026-03-15T15:11:05.479Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-15T15:11:05.656Z] [INFO      ] CREATE_USER_SUCCESS - User: 0ec7f90cde67e582, Role: Admin, Admin: U001
+[2026-03-15T15:11:06.261Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T15:11:06.441Z] [INFO      ] CREATE_USER_SUCCESS - User: 34cb445c20930240, Role: Dispatcher, Admin: U001
+[2026-03-15T15:11:07.015Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-15T15:11:07.018Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-15T15:11:07.605Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:11:07.610Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-15T15:11:08.212Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-15T15:11:08.216Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-15T15:11:08.836Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:11:08.841Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-15T15:11:09.447Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-15T15:11:09.450Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-15T15:11:10.043Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:11:10.048Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-15T15:11:10.645Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-15T15:11:10.649Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-15T15:11:11.267Z] [INFO      ] UPDATE_USER_SUCCESS - User: 6e01aa6d5ebd07e5, Admin: U001
+[2026-03-15T15:11:11.911Z] [INFO      ] UPDATE_USER_SUCCESS - User: 6e01aa6d5ebd07e5, Admin: U001
+[2026-03-15T15:11:12.524Z] [INFO      ] UPDATE_USER_SUCCESS - User: dad8f8130b7e8e2e, Admin: U001
+[2026-03-15T15:11:13.133Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: dad8f8130b7e8e2e
+[2026-03-15T15:11:13.749Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-15T15:11:14.370Z] [INFO      ] SEARCH_USERS - Admin: U001, Results: 23
+[2026-03-15T15:11:15.579Z] [INFO      ] VIEW_RECORD - Admin: U001, Table: User, ID: 6e01aa6d5ebd07e5
+[2026-03-15T15:11:16.864Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Centre, ID: C001
+[2026-03-15T15:11:18.132Z] [INFO      ] DELETE_USER_SUCCESS - User: 0ec7f90cde67e582, Name: Test Admin Two WPS, Admin: U001
+[2026-03-15T15:11:18.764Z] [ERROR     ] DELETE_USER_FAILED: Cannot delete: This admin is referenced in password recovery records. Reassign or resolve those records first. - Target: U001
+[2026-03-15T15:11:20.026Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T15:11:20.626Z] [INFO      ] DISPATCHER_AVAILABILITY - User: U004 set to Yes
+[2026-03-15T15:11:23.058Z] [INFO      ] EMERGENCY_VICTIM_CREATED - Victim: adf763995e5e94c01e91
+[2026-03-15T15:11:23.063Z] [INFO      ] VICTIM_PROCESSED - Victim: adf763995e5e94c01e91, Dispatcher: U004
+[2026-03-15T15:11:24.293Z] [INFO      ] VICTIM_UPDATED - Victim: adf763995e5e94c01e91, Dispatcher: U004
+[2026-03-15T15:11:24.903Z] [INFO      ] CALL_LOGGED - Request: 2d0b47cdc3abb91e18f7, Victim: adf763995e5e94c01e91, Dispatcher: U004
+[2026-03-15T15:11:25.498Z] [INFO      ] GET_CALLS - User: U004, Count: 5
+[2026-03-15T15:11:26.764Z] [INFO      ] CALL_UPDATED - Request: 2d0b47cdc3abb91e18f7, Dispatcher: U004
+[2026-03-15T15:11:27.383Z] [ERROR     ] CALL_LOG_FAILED: victim_id, note, and location are all required.
+[2026-03-15T15:11:28.024Z] [INFO      ] INCIDENT_CREATED - Incident: 974065da82580dabe405, Request: 2d0b47cdc3abb91e18f7, Dispatcher: U004
+[2026-03-15T15:11:29.893Z] [INFO      ] INCIDENT_UPDATED - Incident: 974065da82580dabe405, Dispatcher: U004
+[2026-03-15T15:11:30.516Z] [ERROR     ] INCIDENT_CREATE_FAILED: An incident already exists for this request.
+[2026-03-15T15:11:31.806Z] [INFO      ] VOLUNTEER_LOCKED_AND_ASSIGNED - Volunteer: dad8f8130b7e8e2e, Assignment: 72777d721ae0719c26dd
+[2026-03-15T15:11:31.812Z] [INFO      ] VOLUNTEERS_ASSIGNED - Incident: 974065da82580dabe405, Volunteers: dad8f8130b7e8e2e, Dispatcher: U004
+[2026-03-15T15:11:32.430Z] [ERROR     ] VOLUNTEER_ASSIGN_FAILED: Volunteer dad8f8130b7e8e2e is no longer available (availability changed before lock was acquired).
+[2026-03-15T15:11:33.050Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: Volunteer, Rows: 11
+[2026-03-15T15:11:34.273Z] [ERROR     ] ASSIGNMENT_CREATE_FAILED: An assignment already exists for this incident. Use PUT /assignment/:id to update.
+[2026-03-15T15:11:34.886Z] [INFO      ] ASSIGNMENT_UPDATED - Assignment: 72777d721ae0719c26dd, Status: Completed, Dispatcher: U004
+[2026-03-15T15:11:36.125Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-15T15:11:36.773Z] [INFO      ] CALL_LOGGED - Request: 54b881032b98659e791d, Victim: adf763995e5e94c01e91, Dispatcher: U004
+[2026-03-15T15:11:37.411Z] [INFO      ] INCIDENT_CREATED - Incident: 97e5f139c27839e24cc9, Request: 54b881032b98659e791d, Dispatcher: U004
+[2026-03-15T15:11:38.031Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Sun Mar 15 2026 20:13:38 GMT+0500 (Kazakhstan Time)
+[2026-03-15T15:11:39.310Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: 97e5f139c27839e24cc9
+[2026-03-15T15:11:39.911Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-15T15:11:40.537Z] [INFO      ] INCIDENT_UPDATED - Incident: 97e5f139c27839e24cc9, Dispatcher: U004
+[2026-03-15T15:11:41.136Z] [INFO      ] ADMIN_TAKEOVER - Admin: U001 took over Incident: 97e5f139c27839e24cc9 from Dispatcher: Dispatcher Hina Shah (U004)
+[2026-03-15T15:11:41.752Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: 97e5f139c27839e24cc9
+[2026-03-15T15:11:42.363Z] [INFO      ] ADMIN_LOCK_RELEASED - Admin: U001 released lock on Incident: 97e5f139c27839e24cc9
+[2026-03-15T15:11:42.967Z] [INFO      ] INCIDENT_UPDATED - Incident: 97e5f139c27839e24cc9, Dispatcher: U004
+[2026-03-15T15:11:44.812Z] [INFO      ] LAW_CASE_CREATED - Case: 44c4598f67cb53f4690b, Incident: 97e5f139c27839e24cc9, Type: Penalty, Dispatcher: U004
+[2026-03-15T15:11:46.119Z] [INFO      ] LAW_CASE_UPDATED - Case: 44c4598f67cb53f4690b, Dispatcher: U004
+[2026-03-15T15:11:46.719Z] [ERROR     ] LAW_CASE_CREATE_FAILED: A law case already exists for this incident.
+[2026-03-15T15:11:47.286Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Invalid case_type. Use: Support, Penalty
+[2026-03-15T15:11:47.913Z] [INFO      ] ASSIGNMENT_CREATED - Assignment: 981c4fcfbb8f8dfb085c, Incident: 97e5f139c27839e24cc9, Dispatcher: U004
+[2026-03-15T15:11:48.570Z] [INFO      ] FOLLOWUP_CREATED - Follow-up: aad9134540540e646932, Assignment: 981c4fcfbb8f8dfb085c, Dispatcher: U004
+[2026-03-15T15:11:49.866Z] [INFO      ] FOLLOWUP_UPDATED - Follow-up: aad9134540540e646932, Dispatcher: U004
+[2026-03-15T15:11:50.450Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: Follow-up support already exists for this assignment.
+[2026-03-15T15:11:51.712Z] [INFO      ] DELETE_USER_SUCCESS - User: dad8f8130b7e8e2e, Name: Test Volunteer WPS, Admin: U001
+[2026-03-15T15:11:52.321Z] [INFO      ] DELETE_USER_SUCCESS - User: 34cb445c20930240, Name: Test Dispatcher Two WPS, Admin: U001
+[2026-03-16T01:01:35.169Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-16T01:01:36.038Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-16T01:01:38.699Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-16T01:01:39.323Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Mon Mar 16 2026 06:02:39 GMT+0500 (Kazakhstan Time)
+[2026-03-16T01:01:39.910Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-16T01:01:40.528Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-16T01:01:41.123Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-16T01:01:41.780Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:01:42.061Z] [INFO      ] CREATE_USER_SUCCESS - User: 6169fc02f6e4855a, Role: Victim, Admin: U001
+[2026-03-16T01:01:42.666Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-16T01:01:42.936Z] [INFO      ] CREATE_USER_SUCCESS - User: 3726de40b6d09521, Role: Volunteer, Admin: U001
+[2026-03-16T01:01:43.529Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-16T01:01:43.704Z] [INFO      ] CREATE_USER_SUCCESS - User: 65d32302cf4e5447, Role: Admin, Admin: U001
+[2026-03-16T01:01:44.300Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-16T01:01:44.491Z] [INFO      ] CREATE_USER_SUCCESS - User: 3153f89d6048b6e3, Role: Dispatcher, Admin: U001
+[2026-03-16T01:01:45.099Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-16T01:01:45.103Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-16T01:01:45.685Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:01:45.690Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-16T01:01:46.318Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-16T01:01:46.322Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-16T01:01:46.930Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:01:46.932Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-16T01:01:47.550Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-16T01:01:47.553Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-16T01:01:48.165Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:01:48.169Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-16T01:01:48.784Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:01:48.787Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-16T01:01:49.454Z] [INFO      ] UPDATE_USER_SUCCESS - User: 6169fc02f6e4855a, Admin: U001
+[2026-03-16T01:01:50.090Z] [INFO      ] UPDATE_USER_SUCCESS - User: 6169fc02f6e4855a, Admin: U001
+[2026-03-16T01:01:50.708Z] [INFO      ] UPDATE_USER_SUCCESS - User: 3726de40b6d09521, Admin: U001
+[2026-03-16T01:01:51.304Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 3726de40b6d09521
+[2026-03-16T01:01:51.967Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-16T01:01:52.647Z] [INFO      ] SEARCH_USERS - Admin: U001, Results: 23
+[2026-03-16T01:01:53.943Z] [INFO      ] VIEW_RECORD - Admin: U001, Table: User, ID: 6169fc02f6e4855a
+[2026-03-16T01:01:55.204Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Centre, ID: C001
+[2026-03-16T01:01:56.547Z] [INFO      ] DELETE_USER_SUCCESS - User: 65d32302cf4e5447, Name: Test Admin Two WPS, Admin: U001
+[2026-03-16T01:01:57.164Z] [ERROR     ] DELETE_USER_FAILED: Cannot delete: This admin is referenced in password recovery records. Reassign or resolve those records first. - Target: U001
+[2026-03-16T01:01:58.400Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-16T01:01:59.016Z] [INFO      ] DISPATCHER_AVAILABILITY - User: U004 set to Yes
+[2026-03-16T01:02:01.458Z] [INFO      ] EMERGENCY_VICTIM_CREATED - Victim: 5371e25d80af3427b598
+[2026-03-16T01:02:01.467Z] [INFO      ] VICTIM_PROCESSED - Victim: 5371e25d80af3427b598, Dispatcher: U004
+[2026-03-16T01:02:02.705Z] [INFO      ] VICTIM_UPDATED - Victim: 5371e25d80af3427b598, Dispatcher: U004
+[2026-03-16T01:02:03.375Z] [INFO      ] CALL_LOGGED - Request: 5e6fb31fdf86c8578575, Victim: 5371e25d80af3427b598, Dispatcher: U004
+[2026-03-16T01:02:03.979Z] [INFO      ] GET_CALLS - User: U004, Count: 5
+[2026-03-16T01:02:05.195Z] [INFO      ] CALL_UPDATED - Request: 5e6fb31fdf86c8578575, Dispatcher: U004
+[2026-03-16T01:02:05.822Z] [ERROR     ] CALL_LOG_FAILED: victim_id, note, and location are all required.
+[2026-03-16T01:02:06.467Z] [INFO      ] INCIDENT_CREATED - Incident: 891c39c08c07f2631d00, Request: 5e6fb31fdf86c8578575, Dispatcher: U004
+[2026-03-16T01:02:08.317Z] [INFO      ] INCIDENT_UPDATED - Incident: 891c39c08c07f2631d00, Dispatcher: U004
+[2026-03-16T01:02:08.935Z] [ERROR     ] INCIDENT_CREATE_FAILED: An incident already exists for this request.
+[2026-03-16T01:02:10.246Z] [INFO      ] VOLUNTEER_LOCKED_AND_ASSIGNED - Volunteer: 3726de40b6d09521, Assignment: 323d319ab3f8824f2a1b
+[2026-03-16T01:02:10.249Z] [INFO      ] VOLUNTEERS_ASSIGNED - Incident: 891c39c08c07f2631d00, Volunteers: 3726de40b6d09521, Dispatcher: U004
+[2026-03-16T01:02:10.866Z] [ERROR     ] VOLUNTEER_ASSIGN_FAILED: Volunteer 3726de40b6d09521 is no longer available (availability changed before lock was acquired).
+[2026-03-16T01:02:11.509Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: Volunteer, Rows: 11
+[2026-03-16T01:02:12.719Z] [ERROR     ] ASSIGNMENT_CREATE_FAILED: An assignment already exists for this incident. Use PUT /assignment/:id to update.
+[2026-03-16T01:02:13.346Z] [INFO      ] ASSIGNMENT_UPDATED - Assignment: 323d319ab3f8824f2a1b, Status: Completed, Dispatcher: U004
+[2026-03-16T01:02:14.539Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-16T01:02:15.154Z] [INFO      ] CALL_LOGGED - Request: 37535c488cdaeb525768, Victim: 5371e25d80af3427b598, Dispatcher: U004
+[2026-03-16T01:02:15.816Z] [INFO      ] INCIDENT_CREATED - Incident: 1f0a69f53c3ccba5bac1, Request: 37535c488cdaeb525768, Dispatcher: U004
+[2026-03-16T01:02:16.442Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Mon Mar 16 2026 06:04:16 GMT+0500 (Kazakhstan Time)
+[2026-03-16T01:02:17.678Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: 1f0a69f53c3ccba5bac1
+[2026-03-16T01:02:18.268Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-16T01:02:18.873Z] [INFO      ] INCIDENT_UPDATED - Incident: 1f0a69f53c3ccba5bac1, Dispatcher: U004
+[2026-03-16T01:02:19.484Z] [INFO      ] ADMIN_TAKEOVER - Admin: U001 took over Incident: 1f0a69f53c3ccba5bac1 from Dispatcher: Dispatcher Hina Shah (U004)
+[2026-03-16T01:02:20.088Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: 1f0a69f53c3ccba5bac1
+[2026-03-16T01:02:20.700Z] [INFO      ] ADMIN_LOCK_RELEASED - Admin: U001 released lock on Incident: 1f0a69f53c3ccba5bac1
+[2026-03-16T01:02:21.327Z] [INFO      ] INCIDENT_UPDATED - Incident: 1f0a69f53c3ccba5bac1, Dispatcher: U004
+[2026-03-16T01:02:23.185Z] [INFO      ] LAW_CASE_CREATED - Case: bb2658c7b9574accdf42, Incident: 1f0a69f53c3ccba5bac1, Type: Penalty, Dispatcher: U004
+[2026-03-16T01:02:24.414Z] [INFO      ] LAW_CASE_UPDATED - Case: bb2658c7b9574accdf42, Dispatcher: U004
+[2026-03-16T01:02:25.019Z] [ERROR     ] LAW_CASE_CREATE_FAILED: A law case already exists for this incident.
+[2026-03-16T01:02:25.624Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Invalid case_type. Use: Support, Penalty
+[2026-03-16T01:02:26.261Z] [INFO      ] ASSIGNMENT_CREATED - Assignment: 26ec264eb7ae84f1a32a, Incident: 1f0a69f53c3ccba5bac1, Dispatcher: U004
+[2026-03-16T01:02:26.869Z] [INFO      ] FOLLOWUP_CREATED - Follow-up: 0de3bc59e68bc7c19e0c, Assignment: 26ec264eb7ae84f1a32a, Dispatcher: U004
+[2026-03-16T01:02:28.151Z] [INFO      ] FOLLOWUP_UPDATED - Follow-up: 0de3bc59e68bc7c19e0c, Dispatcher: U004
+[2026-03-16T01:02:28.764Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: Follow-up support already exists for this assignment.
+[2026-03-16T01:02:30.007Z] [INFO      ] DELETE_USER_SUCCESS - User: 3726de40b6d09521, Name: Test Volunteer WPS, Admin: U001
+[2026-03-16T01:02:30.610Z] [INFO      ] DELETE_USER_SUCCESS - User: 3153f89d6048b6e3, Name: Test Dispatcher Two WPS, Admin: U001
+[2026-03-16T01:06:29.928Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-16T01:06:30.772Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-16T01:06:33.342Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-16T01:06:33.956Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Mon Mar 16 2026 06:07:33 GMT+0500 (Kazakhstan Time)
+[2026-03-16T01:06:34.557Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-16T01:06:35.155Z] [INFO      ] FORCE_RELEASE_PRIORITY - User: U001, Previously locked by: U001
+[2026-03-16T01:06:35.768Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-16T01:06:36.371Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:06:36.600Z] [INFO      ] CREATE_USER_SUCCESS - User: c7a3fe4bcf37de44, Role: Victim, Admin: U001
+[2026-03-16T01:06:37.219Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-16T01:06:37.447Z] [INFO      ] CREATE_USER_SUCCESS - User: 4242fd8d92380a9d, Role: Volunteer, Admin: U001
+[2026-03-16T01:06:38.050Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Admin
+[2026-03-16T01:06:38.302Z] [INFO      ] CREATE_USER_SUCCESS - User: de471d5b5755927a, Role: Admin, Admin: U001
+[2026-03-16T01:06:38.902Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-16T01:06:39.100Z] [INFO      ] CREATE_USER_SUCCESS - User: 897166da9641ecc5, Role: Dispatcher, Admin: U001
+[2026-03-16T01:06:39.702Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: undefined
+[2026-03-16T01:06:39.707Z] [ERROR     ] CREATE_USER_FAILED: Missing required fields. - Admin: U001
+[2026-03-16T01:06:40.320Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:06:40.323Z] [ERROR     ] CREATE_USER_FAILED: Date of birth cannot be today or in the future. - Admin: U001
+[2026-03-16T01:06:40.954Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Volunteer
+[2026-03-16T01:06:40.959Z] [ERROR     ] CREATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-16T01:06:41.589Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:06:41.592Z] [ERROR     ] CREATE_USER_FAILED: Invalid CNIC format. Use #####-#######-# (e.g. 12345-1234567-1). - Admin: U001
+[2026-03-16T01:06:42.191Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-16T01:06:42.195Z] [ERROR     ] CREATE_USER_FAILED: Centre ID required for Dispatcher. - Admin: U001
+[2026-03-16T01:06:42.813Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:06:42.821Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-16T01:06:43.442Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T01:06:43.446Z] [ERROR     ] CREATE_USER_FAILED: Emergency contact cannot be the same as personal phone number. - Admin: U001
+[2026-03-16T01:06:44.060Z] [INFO      ] UPDATE_USER_SUCCESS - User: c7a3fe4bcf37de44, Admin: U001
+[2026-03-16T01:06:44.682Z] [INFO      ] UPDATE_USER_SUCCESS - User: c7a3fe4bcf37de44, Admin: U001
+[2026-03-16T01:06:45.287Z] [INFO      ] UPDATE_USER_SUCCESS - User: 4242fd8d92380a9d, Admin: U001
+[2026-03-16T01:06:45.891Z] [ERROR     ] UPDATE_USER_FAILED: Volunteer must be 18 years or older. Provided age: 11. - Target: 4242fd8d92380a9d
+[2026-03-16T01:06:46.500Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 44
+[2026-03-16T01:06:47.168Z] [INFO      ] SEARCH_USERS - Admin: U001, Results: 23
+[2026-03-16T01:06:48.402Z] [INFO      ] VIEW_RECORD - Admin: U001, Table: User, ID: c7a3fe4bcf37de44
+[2026-03-16T01:06:49.695Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Centre, ID: C001
+[2026-03-16T01:06:50.981Z] [INFO      ] DELETE_USER_SUCCESS - User: de471d5b5755927a, Name: Test Admin Two WPS, Admin: U001
+[2026-03-16T01:06:51.617Z] [ERROR     ] DELETE_USER_FAILED: Cannot delete: This admin is referenced in password recovery records. Reassign or resolve those records first. - Target: U001
+[2026-03-16T01:06:52.892Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-16T01:06:53.471Z] [INFO      ] DISPATCHER_AVAILABILITY - User: U004 set to Yes
+[2026-03-16T01:06:55.873Z] [INFO      ] EMERGENCY_VICTIM_CREATED - Victim: 37101d1975c0f1ccacf3
+[2026-03-16T01:06:55.884Z] [INFO      ] VICTIM_PROCESSED - Victim: 37101d1975c0f1ccacf3, Dispatcher: U004
+[2026-03-16T01:06:57.142Z] [INFO      ] VICTIM_UPDATED - Victim: 37101d1975c0f1ccacf3, Dispatcher: U004
+[2026-03-16T01:06:57.783Z] [INFO      ] CALL_LOGGED - Request: c4092e17340dcd952269, Victim: 37101d1975c0f1ccacf3, Dispatcher: U004
+[2026-03-16T01:06:58.406Z] [INFO      ] GET_CALLS - User: U004, Count: 5
+[2026-03-16T01:06:59.673Z] [INFO      ] CALL_UPDATED - Request: c4092e17340dcd952269, Dispatcher: U004
+[2026-03-16T01:07:00.321Z] [ERROR     ] CALL_LOG_FAILED: victim_id, note, and location are all required.
+[2026-03-16T01:07:00.932Z] [INFO      ] INCIDENT_CREATED - Incident: 6a62c22a8d4c38ab0949, Request: c4092e17340dcd952269, Dispatcher: U004
+[2026-03-16T01:07:02.813Z] [INFO      ] INCIDENT_UPDATED - Incident: 6a62c22a8d4c38ab0949, Dispatcher: U004
+[2026-03-16T01:07:03.439Z] [ERROR     ] INCIDENT_CREATE_FAILED: An incident already exists for this request.
+[2026-03-16T01:07:04.708Z] [INFO      ] VOLUNTEER_LOCKED_AND_ASSIGNED - Volunteer: 4242fd8d92380a9d, Assignment: de77a1f4438f8af9e179
+[2026-03-16T01:07:04.712Z] [INFO      ] VOLUNTEERS_ASSIGNED - Incident: 6a62c22a8d4c38ab0949, Volunteers: 4242fd8d92380a9d, Dispatcher: U004
+[2026-03-16T01:07:05.328Z] [ERROR     ] VOLUNTEER_ASSIGN_FAILED: Volunteer 4242fd8d92380a9d is no longer available (availability changed before lock was acquired).
+[2026-03-16T01:07:05.958Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: Volunteer, Rows: 11
+[2026-03-16T01:07:07.172Z] [ERROR     ] ASSIGNMENT_CREATE_FAILED: An assignment already exists for this incident. Use PUT /assignment/:id to update.
+[2026-03-16T01:07:07.847Z] [INFO      ] ASSIGNMENT_UPDATED - Assignment: de77a1f4438f8af9e179, Status: Completed, Dispatcher: U004
+[2026-03-16T01:07:09.051Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-16T01:07:09.671Z] [INFO      ] CALL_LOGGED - Request: 481caed887ffbe1989b3, Victim: 37101d1975c0f1ccacf3, Dispatcher: U004
+[2026-03-16T01:07:10.289Z] [INFO      ] INCIDENT_CREATED - Incident: 79613771c44d9a9e79d9, Request: 481caed887ffbe1989b3, Dispatcher: U004
+[2026-03-16T01:07:10.900Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Mon Mar 16 2026 06:09:10 GMT+0500 (Kazakhstan Time)
+[2026-03-16T01:07:12.175Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: 79613771c44d9a9e79d9
+[2026-03-16T01:07:12.768Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-16T01:07:13.418Z] [INFO      ] INCIDENT_UPDATED - Incident: 79613771c44d9a9e79d9, Dispatcher: U004
+[2026-03-16T01:07:14.067Z] [INFO      ] ADMIN_TAKEOVER - Admin: U001 took over Incident: 79613771c44d9a9e79d9 from Dispatcher: Dispatcher Hina Shah (U004)
+[2026-03-16T01:07:14.700Z] [INFO      ] UPDATE_RECORD - Admin: U001, Table: Incident, ID: 79613771c44d9a9e79d9
+[2026-03-16T01:07:15.328Z] [INFO      ] ADMIN_LOCK_RELEASED - Admin: U001 released lock on Incident: 79613771c44d9a9e79d9
+[2026-03-16T01:07:15.968Z] [INFO      ] INCIDENT_UPDATED - Incident: 79613771c44d9a9e79d9, Dispatcher: U004
+[2026-03-16T01:07:17.746Z] [INFO      ] LAW_CASE_CREATED - Case: 8ab1a1b49fa5658c7829, Incident: 79613771c44d9a9e79d9, Type: Penalty, Dispatcher: U004
+[2026-03-16T01:07:18.997Z] [INFO      ] LAW_CASE_UPDATED - Case: 8ab1a1b49fa5658c7829, Dispatcher: U004
+[2026-03-16T01:07:19.610Z] [ERROR     ] LAW_CASE_CREATE_FAILED: A law case already exists for this incident.
+[2026-03-16T01:07:20.254Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Invalid case_type. Use: Support, Penalty
+[2026-03-16T01:07:20.947Z] [INFO      ] ASSIGNMENT_CREATED - Assignment: 4e0cb4001ec85bdf3fa3, Incident: 79613771c44d9a9e79d9, Dispatcher: U004
+[2026-03-16T01:07:21.628Z] [INFO      ] FOLLOWUP_CREATED - Follow-up: bb7ac26717b1d1c21149, Assignment: 4e0cb4001ec85bdf3fa3, Dispatcher: U004
+[2026-03-16T01:07:22.954Z] [INFO      ] FOLLOWUP_UPDATED - Follow-up: bb7ac26717b1d1c21149, Dispatcher: U004
+[2026-03-16T01:07:23.561Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: Follow-up support already exists for this assignment.
+[2026-03-16T01:07:24.748Z] [INFO      ] DELETE_USER_SUCCESS - User: 4242fd8d92380a9d, Name: Test Volunteer WPS, Admin: U001
+[2026-03-16T01:07:25.364Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-16T01:07:26.125Z] [SUCCESS   ] Login: 897166da9641ecc5 | Roles: Dispatcher
+[2026-03-16T01:07:27.393Z] [INFO      ] VICTIM_UPDATED - Victim: 37101d1975c0f1ccacf3, Dispatcher: 897166da9641ecc5
+[2026-03-16T01:07:28.593Z] [ERROR     ] INCIDENT_CREATE_FAILED: Request not found or not assigned to you.
+[2026-03-16T01:07:29.872Z] [ERROR     ] INCIDENT_UPDATE_FAILED: Incident not found or not assigned to you.
+[2026-03-16T01:07:30.459Z] [ERROR     ] ASSIGNMENT_UPDATE_FAILED: Assignment not found or not assigned to you.
+[2026-03-16T01:07:31.087Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Incident not found or not assigned to you.
+[2026-03-16T01:07:31.708Z] [ERROR     ] FOLLOWUP_CREATE_FAILED: Assignment not found or not assigned to you.
+[2026-03-16T01:07:32.324Z] [INFO      ] GET_CALLS - User: 897166da9641ecc5, Count: 0
+[2026-03-16T01:07:33.554Z] [ERROR     ] VOLUNTEER_ASSIGN_FAILED: Incident not found or not assigned to you.
+[2026-03-16T01:07:34.806Z] [INFO      ] DELETE_USER_SUCCESS - User: 897166da9641ecc5, Name: Test Dispatcher Two WPS, Admin: U001
+[2026-03-16T02:32:34.874Z] [SUCCESS   ] Login: U001 | Roles: Admin
+[2026-03-16T02:32:34.938Z] [SUCCESS   ] Login: U004 | Roles: Dispatcher
+[2026-03-16T02:32:34.941Z] [TX-START  ] Route: POST /auth/register | User: testswag_already_exists@noreply.com
+[2026-03-16T02:32:35.037Z] [INFO      ] Inserted User: 78ca7e9d631ffd89 (testswag_already_exists@noreply.com)
+[2026-03-16T02:32:35.042Z] [INFO      ] Inserted Victim: 78ca7e9d631ffd89
+[2026-03-16T02:32:35.064Z] [TX-COMMIT ] Route: POST /auth/register | Victim registered: 78ca7e9d631ffd89
+[2026-03-16T02:32:35.093Z] [INFO      ] CHECK_LOCK_STATUS - User: U001
+[2026-03-16T02:32:35.095Z] [INFO      ] CLAIM_PRIORITY - User: U001, Expires: Mon Mar 16 2026 07:32:45 GMT+0500 (Kazakhstan Time)
+[2026-03-16T02:32:35.100Z] [INFO      ] RELEASE_PRIORITY - User: U001
+[2026-03-16T02:32:35.103Z] [INFO      ] RELEASE_PRIORITY_DENIED - User: U001, Locked by: null
+[2026-03-16T02:32:35.118Z] [INFO      ] GET_ALL_USERS - Admin: U001, Count: 43
+[2026-03-16T02:32:35.137Z] [INFO      ] SEARCH_USERS - Admin: U001, Results: 3
+[2026-03-16T02:32:35.146Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T02:32:35.258Z] [INFO      ] CREATE_USER_SUCCESS - User: 27389d16da22ef87, Role: Victim, Admin: U001
+[2026-03-16T02:32:35.263Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Victim
+[2026-03-16T02:32:35.266Z] [ERROR     ] CREATE_USER_FAILED: A user with this email already exists. - Admin: U001
+[2026-03-16T02:32:35.269Z] [INFO      ] CREATE_USER_START - Admin: U001, Role: Dispatcher
+[2026-03-16T02:32:35.270Z] [ERROR     ] CREATE_USER_FAILED: Dispatcher must be 18 years or older. Provided age: 11. - Admin: U001
+[2026-03-16T02:32:35.289Z] [INFO      ] UPDATE_USER_SUCCESS - User: 27389d16da22ef87, Admin: U001
+[2026-03-16T02:32:35.446Z] [INFO      ] GET_TABLES - Admin: U001
+[2026-03-16T02:32:35.453Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: User, Rows: 44
+[2026-03-16T02:32:35.461Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: Victim, Rows: 26
+[2026-03-16T02:32:35.470Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: Volunteer, Rows: 10
+[2026-03-16T02:32:35.482Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: Password_Recovery, Rows: 10
+[2026-03-16T02:32:35.491Z] [INFO      ] VIEW_TABLE - Admin: U001, Table: Centre, Rows: 5
+[2026-03-16T02:32:35.500Z] [INFO      ] VIEW_RECORD - Admin: U001, Table: User, ID: 27389d16da22ef87
+[2026-03-16T02:32:35.540Z] [INFO      ] DISPATCHER_WORKLOAD - User: U004
+[2026-03-16T02:32:35.545Z] [INFO      ] DISPATCHER_AVAILABILITY - User: U004 set to Yes
+[2026-03-16T02:32:35.557Z] [INFO      ] EMERGENCY_VICTIM_CREATED - Victim: 12b8160a6283ce66baa3
+[2026-03-16T02:32:35.563Z] [INFO      ] VICTIM_PROCESSED - Victim: 12b8160a6283ce66baa3, Dispatcher: U004
+[2026-03-16T02:32:35.567Z] [INFO      ] VICTIM_PROCESSED - Victim: 12b8160a6283ce66baa3, Dispatcher: U004
+[2026-03-16T02:32:35.572Z] [ERROR     ] CREATE_VICTIM_FAILED: Name and phone number are required.
+[2026-03-16T02:32:35.582Z] [ERROR     ] CALL_LOG_FAILED: victim_id, note, and location are all required.
+[2026-03-16T02:32:35.585Z] [ERROR     ] CALL_LOG_FAILED: Invalid type. Use: False, Emergency, Query
+[2026-03-16T02:32:35.598Z] [INFO      ] CALL_LOGGED - Request: 1c8a01dbab56af5dd684, Victim: 12b8160a6283ce66baa3, Dispatcher: U004
+[2026-03-16T02:32:35.604Z] [INFO      ] GET_CALLS - User: U004, Count: 7
+[2026-03-16T02:32:35.627Z] [ERROR     ] INCIDENT_CREATE_FAILED: request_id is required.
+[2026-03-16T02:32:35.630Z] [ERROR     ] INCIDENT_CREATE_FAILED: Invalid emergency type. Options: Domestic Violence, Sexual Assault, Harassment, Kidnapping, Stalking, Medical Emergency
+[2026-03-16T02:32:35.644Z] [ERROR     ] LAW_CASE_CREATE_FAILED: Invalid case_type. Use: Support, Penalty
+[2026-03-16T02:32:35.647Z] [ERROR     ] LAW_CASE_CREATE_FAILED: incident_id is required.
+[2026-03-16T02:32:35.689Z] [INFO      ] DELETE_USER_SUCCESS - User: 27389d16da22ef87, Name: Updated SwagTest Victim, Admin: U001
