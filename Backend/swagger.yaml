@@ -1,0 +1,3393 @@
+openapi: 3.0.0
+info:
+  title: Women Protection Services API
+  description: |
+    Comprehensive API for women protection services including victim management,
+    dispatcher operations, volunteer coordination, incident tracking, and administrative functions.
+
+    ## Authentication
+    JWT tokens are obtained via `/api/auth/login` and must be sent as `Authorization: Bearer <token>`.
+    Tokens contain the user's `id`, `email`, and `roles` array.
+
+    ## Role-Based Access
+    - **Admin**: Full system access, user management, table operations, priority locking
+    - **Dispatcher**: Handle calls, create incidents, assign volunteers/police/ambulance (also accepts Admin token)
+    - **Volunteer**: View assignments, update status
+    - **Victim**: Submit requests, view personal incidents
+
+    ## Error Response Keys
+    - `admin.js` and `dispatcher.js` routes return `{ "error": "..." }`
+    - `victim.js`, `volunteer.js`, `passwordRecovery.js`, and `authRoutes.js` return `{ "message": "..." }`
+
+    ## Important Notes
+    - `GET /api/password-recovery/my-requests` must be called before it resolves as `/:id` in Express
+      (route ordering issue — works correctly at runtime because Express matches literal paths first)
+    - Dispatcher routes accept both `Dispatcher` and `Admin` roles
+    - `GET /api/victim/register` requires any valid JWT (no specific role check)
+  version: 2.0.0
+  contact:
+    name: Women Protection Services Team
+    email: support@wps.gov.pk
+
+servers:
+  - url: http://localhost:5000/api
+    description: Development Server
+
+tags:
+  - name: Auth
+    description: Login and self-registration as victim
+  - name: Admin – Priority
+    description: System-wide write lock management
+  - name: Admin – Users
+    description: Full user CRUD (all roles)
+  - name: Admin – Tables
+    description: Read all table data (allTables) and update/delete updatableTables
+  - name: Dispatcher – Workload
+    description: Dispatcher availability and workload stats
+  - name: Dispatcher – Victims
+    description: Create and update victim records (shared resource — any dispatcher)
+  - name: Dispatcher – Calls
+    description: Log and manage incoming calls (Request_log)
+  - name: Dispatcher – Incidents
+    description: Create and manage incidents (owned by logging dispatcher)
+  - name: Dispatcher – Volunteers
+    description: View and assign volunteers from own centre only
+  - name: Dispatcher – Resources
+    description: Police and ambulance assignment
+  - name: Dispatcher – Backup
+    description: Volunteer backup requests and status
+  - name: Dispatcher – Legal
+    description: Law case management
+  - name: Dispatcher – Follow-up
+    description: Rehabilitation and safety centre referrals
+  - name: Dispatcher – Admin Takeover
+    description: Force-take and release incident locks (Admin only)
+  - name: Volunteer
+    description: Volunteer assignment viewing and status updates
+  - name: Victim
+    description: Self-service victim registration and request submission
+  - name: Password Recovery
+    description: Password reset workflow
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        JWT from `/api/auth/login`. Contains `{ id, email, roles }`.
+        Send as: `Authorization: Bearer <token>`
+
+  schemas:
+    # ─────────────────────────────────────────────────────
+    # ERROR RESPONSES
+    # ─────────────────────────────────────────────────────
+    ErrorAdmin:
+      type: object
+      description: Used by admin.js and dispatcher.js routes
+      properties:
+        error:
+          type: string
+          example: "Record not found."
+
+    ErrorGeneral:
+      type: object
+      description: Used by auth, victim, volunteer, passwordRecovery routes
+      properties:
+        message:
+          type: string
+          example: "All fields are required"
+
+    # ─────────────────────────────────────────────────────
+    # AUTH
+    # ─────────────────────────────────────────────────────
+    LoginRequest:
+      type: object
+      required: [user_id, password]
+      properties:
+        user_id:
+          type: string
+          example: "U001"
+        password:
+          type: string
+          format: password
+          example: "Test@1234"
+
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        roles:
+          type: array
+          items:
+            type: string
+            enum: [Admin, Victim, Volunteer, Dispatcher]
+          example: ["Dispatcher"]
+
+    RegisterRequest:
+      type: object
+      required: [Name, Email, Phone_no, Address, Password, Date_of_Birth, Emergency_contact, CNIC]
+      properties:
+        Name:
+          type: string
+          example: "Fatima Khan"
+        Email:
+          type: string
+          format: email
+          example: "fatima@example.com"
+        Phone_no:
+          type: string
+          pattern: '^\d{10,11}$'
+          example: "03001234567"
+        Address:
+          type: string
+          example: "123 Test Street, Lahore"
+        Password:
+          type: string
+          format: password
+          description: Min 8 chars, must include uppercase, number, and special character
+          example: "Test@1234"
+        Date_of_Birth:
+          type: string
+          format: date
+          example: "1995-05-15"
+        Emergency_contact:
+          type: string
+          pattern: '^\d{10,11}$'
+          example: "03009998877"
+        CNIC:
+          type: string
+          pattern: '^\d{13}$'
+          description: 13 digits, no dashes (registration only)
+          example: "1234512345671"
+
+    RegisterResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Victim registered successfully"
+        user_id:
+          type: string
+          example: "a1b2c3d4e5f67890"
+        roles:
+          type: array
+          items:
+            type: string
+          example: ["Victim"]
+        token:
+          type: string
+
+    # ─────────────────────────────────────────────────────
+    # ADMIN – PRIORITY
+    # ─────────────────────────────────────────────────────
+    LockStatus:
+      type: object
+      properties:
+        appLock:
+          type: object
+          properties:
+            active:
+              type: boolean
+            lockedBy:
+              type: string
+              nullable: true
+            expiresAt:
+              type: string
+              format: date-time
+              nullable: true
+        dbLock:
+          type: object
+          properties:
+            free:
+              type: boolean
+        currentUser:
+          type: string
+
+    ClaimPriorityRequest:
+      type: object
+      properties:
+        duration:
+          type: integer
+          description: Lock duration in milliseconds (default 300000 = 5 min)
+          default: 300000
+          example: 60000
+
+    # ─────────────────────────────────────────────────────
+    # ADMIN – USERS
+    # ─────────────────────────────────────────────────────
+    CreateUserRequest:
+      type: object
+      required: [name, email, phone_no, address, password, date_of_birth, role, cnic]
+      properties:
+        name:
+          type: string
+          example: "Fatima Khan"
+        email:
+          type: string
+          format: email
+          example: "fatima@example.com"
+        phone_no:
+          type: string
+          pattern: '^\d{10,11}$'
+          example: "03001234567"
+        address:
+          type: string
+          example: "House 5, Gulberg, Lahore"
+        password:
+          type: string
+          format: password
+          example: "Test@1234"
+        date_of_birth:
+          type: string
+          format: date
+          example: "1995-05-15"
+        role:
+          type: string
+          enum: [Admin, Victim, Volunteer, Dispatcher]
+          example: "Victim"
+        cnic:
+          type: string
+          pattern: '^\d{5}-\d{7}-\d$'
+          description: Pakistani CNIC with dashes
+          example: "12345-1234567-1"
+        centre_id:
+          type: string
+          description: Required for Dispatcher and Volunteer
+          example: "C001"
+        emergency_contact:
+          type: string
+          pattern: '^\d{10,11}$'
+          description: Required for Victim and Volunteer; must differ from phone_no
+          example: "03009998877"
+
+    CreateUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "User created successfully."
+        user_id:
+          type: string
+          example: "a1b2c3d4e5f67890"
+        role:
+          type: string
+          example: "Victim"
+        age:
+          type: integer
+          example: 29
+        warning:
+          type: string
+          nullable: true
+          description: Present only when Victim's emergency_contact matches a registered user
+          example: "Emergency contact belongs to registered user: Aisha Khan"
+
+    UpdateUserRequest:
+      type: object
+      description: All fields optional — only provided fields are updated
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        phone_no:
+          type: string
+          pattern: '^\d{10,11}$'
+        address:
+          type: string
+        role:
+          type: string
+          enum: [Admin, Victim, Volunteer, Dispatcher]
+        password:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+        centre_id:
+          type: string
+          description: Required when changing/updating role to Volunteer or Dispatcher
+        emergency_contact:
+          type: string
+          pattern: '^\d{10,11}$'
+          description: Required when changing/updating role to Victim or Volunteer
+        cnic:
+          type: string
+          pattern: '^\d{5}-\d{7}-\d$'
+
+    UserListItem:
+      type: object
+      properties:
+        User_id:
+          type: string
+        Name:
+          type: string
+        Email:
+          type: string
+        Phone:
+          type: string
+        Address:
+          type: string
+        Date_of_Birth:
+          type: string
+        CNIC:
+          type: string
+        Role:
+          type: string
+          enum: [Admin, Victim, Volunteer, Dispatcher, Unknown]
+        Centre:
+          type: string
+          nullable: true
+        Volunteer_Centre_id:
+          type: string
+          nullable: true
+        Availability:
+          type: string
+          nullable: true
+        Status:
+          type: string
+          nullable: true
+        Victim_Emergency_contact:
+          type: string
+          nullable: true
+        Volunteer_Emergency_contact:
+          type: string
+          nullable: true
+
+    TableViewResponse:
+      type: object
+      properties:
+        table:
+          type: string
+        columns:
+          type: array
+          items:
+            type: string
+        row_count:
+          type: integer
+        data:
+          type: array
+          items:
+            type: object
+
+    SingleRecordResponse:
+      type: object
+      description: All columns of the row plus _lockInfo
+      properties:
+        _lockInfo:
+          type: object
+          properties:
+            locked:
+              type: boolean
+            lockedBy:
+              type: integer
+              nullable: true
+              description: MySQL connection thread ID holding the lock
+            lockerDetails:
+              type: object
+              nullable: true
+              properties:
+                ID:
+                  type: integer
+                USER:
+                  type: string
+                HOST:
+                  type: string
+            message:
+              type: string
+              nullable: true
+
+    TableInfo:
+      type: object
+      properties:
+        TABLE_NAME:
+          type: string
+        TABLE_ROWS:
+          type: integer
+        SIZE_BYTES:
+          type: integer
+        CREATE_TIME:
+          type: string
+        UPDATE_TIME:
+          type: string
+          nullable: true
+        TABLE_COMMENT:
+          type: string
+        COLUMN_COUNT:
+          type: integer
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – WORKLOAD
+    # ─────────────────────────────────────────────────────
+    WorkloadResponse:
+      type: object
+      properties:
+        current_workload:
+          type: object
+          properties:
+            active_requests:
+              type: integer
+            active_incidents:
+              type: integer
+            incident_ids:
+              type: string
+              nullable: true
+              description: Comma-separated list of active incident IDs
+            oldest_request:
+              type: string
+              format: date-time
+              nullable: true
+        history:
+          type: object
+          properties:
+            total_handled:
+              type: integer
+            avg_response_time:
+              type: number
+              nullable: true
+              description: Average minutes between request and incident creation
+            total_incidents:
+              type: integer
+            total_assignments:
+              type: integer
+        availability:
+          type: string
+          enum: [Yes, No]
+        dispatcher_id:
+          type: string
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – VICTIMS
+    # ─────────────────────────────────────────────────────
+    VictimSearchResponse:
+      type: object
+      properties:
+        found:
+          type: boolean
+        user:
+          type: object
+          nullable: true
+          properties:
+            User_id:
+              type: string
+            Name:
+              type: string
+            Phone_no:
+              type: string
+            Email:
+              type: string
+            Address:
+              type: string
+            CNIC:
+              type: string
+            Emergency_contact:
+              type: string
+              nullable: true
+            is_victim:
+              type: integer
+              enum: [0, 1]
+              description: 1 if already registered as Victim
+        message:
+          type: string
+          description: Present only when found=false
+
+    VictimCreateRequest:
+      type: object
+      required: [name, phone_no]
+      properties:
+        name:
+          type: string
+          example: "Emergency Caller"
+        phone_no:
+          type: string
+          pattern: '^\d{10,11}$'
+          example: "03500000001"
+        email:
+          type: string
+          description: Optional — auto-generated placeholder if omitted
+        address:
+          type: string
+        date_of_birth:
+          type: string
+          format: date
+          description: Optional — defaults to 1900-01-01 for emergency records
+        cnic:
+          type: string
+          pattern: '^\d{5}-\d{7}-\d$'
+          description: Optional — unique placeholder generated from user_id if omitted
+        password:
+          type: string
+          description: Optional — random hex string generated if omitted
+        emergency_contact:
+          type: string
+          pattern: '^\d{10,11}$'
+          description: Optional — defaults to phone_no if omitted
+
+    VictimCreateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "New victim created successfully."
+        victim_id:
+          type: string
+        is_new:
+          type: boolean
+        is_emergency_record:
+          type: boolean
+          description: True when cnic or date_of_birth were not provided (placeholders used)
+        next_step:
+          type: string
+
+    VictimDetailResponse:
+      type: object
+      properties:
+        User_id:
+          type: string
+        Name:
+          type: string
+        Phone_no:
+          type: string
+        Email:
+          type: string
+        Address:
+          type: string
+        Date_of_Birth:
+          type: string
+        CNIC:
+          type: string
+        Emergency_contact:
+          type: string
+        total_requests:
+          type: integer
+        open_incidents:
+          type: integer
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – CALLS
+    # ─────────────────────────────────────────────────────
+    CallLogRequest:
+      type: object
+      required: [victim_id, note, location]
+      properties:
+        victim_id:
+          type: string
+          example: "abc123"
+        note:
+          type: string
+          description: Required — maps to Request_log.Note NOT NULL
+          example: "Caller reports domestic violence"
+        location:
+          type: string
+          example: "House 5, Street 3, Gulberg, Lahore"
+        type:
+          type: string
+          enum: [False, Emergency, Query]
+          default: "Emergency"
+
+    CallLogResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Call logged successfully."
+        request_id:
+          type: string
+        victim_id:
+          type: string
+        victim_emergency_contact:
+          type: string
+        location:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        workload_warning:
+          type: string
+          nullable: true
+          description: Non-null if dispatcher already has active incidents
+        next_step:
+          type: string
+
+    CallListItem:
+      type: object
+      description: Row from Request_log joined with Victim/User/Incident
+      properties:
+        Request_id:
+          type: string
+        Request_time:
+          type: string
+          format: date-time
+        Note:
+          type: string
+        Location:
+          type: string
+        Type:
+          type: string
+        Victim_id:
+          type: string
+        Dispatcher_id:
+          type: string
+        victim_name:
+          type: string
+        victim_phone:
+          type: string
+        victim_cnic:
+          type: string
+        Emergency_contact:
+          type: string
+        Incident_id:
+          type: string
+          nullable: true
+        incident_status:
+          type: string
+          nullable: true
+        Severity:
+          type: string
+          nullable: true
+        Emergency_type:
+          type: string
+          nullable: true
+        call_status:
+          type: string
+          enum: [Processed, Pending]
+
+    CallDetailResponse:
+      type: object
+      description: Single call with full victim details and linked incident
+      properties:
+        Request_id:
+          type: string
+        Request_time:
+          type: string
+          format: date-time
+        call_note:
+          type: string
+        call_location:
+          type: string
+        call_type:
+          type: string
+          enum: [False, Emergency, Query]
+        Victim_id:
+          type: string
+        Dispatcher_id:
+          type: string
+        victim_name:
+          type: string
+        victim_phone:
+          type: string
+        victim_email:
+          type: string
+        victim_address:
+          type: string
+        Date_of_Birth:
+          type: string
+        victim_cnic:
+          type: string
+        Emergency_contact:
+          type: string
+        Incident_id:
+          type: string
+          nullable: true
+        Emergency_type:
+          type: string
+          nullable: true
+        Severity:
+          type: string
+          nullable: true
+        incident_note:
+          type: string
+          nullable: true
+        incident_location:
+          type: string
+          nullable: true
+        incident_status:
+          type: string
+          nullable: true
+        Verification_status:
+          type: string
+          nullable: true
+        incident_time:
+          type: string
+          nullable: true
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – INCIDENTS
+    # ─────────────────────────────────────────────────────
+    IncidentCreateRequest:
+      type: object
+      required: [request_id, emergency_type, severity]
+      properties:
+        request_id:
+          type: string
+          example: "abc123"
+        emergency_type:
+          type: string
+          enum: [Domestic Violence, Sexual Assault, Harassment, Kidnapping, Stalking, Medical Emergency]
+        severity:
+          type: string
+          enum: [High, Medium, Low]
+        note:
+          type: string
+          description: Optional — falls back to Request_log.Note if omitted
+        location:
+          type: string
+          description: Optional — falls back to Request_log.Location if omitted
+        verification_status:
+          type: string
+          enum: [False, True]
+          default: "True"
+
+    IncidentCreateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Incident created successfully."
+        incident_id:
+          type: string
+        victim:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            phone:
+              type: string
+        location:
+          type: string
+        severity:
+          type: string
+        next_step:
+          type: string
+
+    IncidentDetail:
+      type: object
+      description: Full incident with assignment, police, ambulance, law case, follow-up, volunteers
+      properties:
+        Incident_id:
+          type: string
+        Request_id:
+          type: string
+        Emergency_type:
+          type: string
+        Severity:
+          type: string
+        incident_note:
+          type: string
+        incident_location:
+          type: string
+        Verification_status:
+          type: string
+        incident_time:
+          type: string
+          format: date-time
+        incident_status:
+          type: string
+          enum: [Completed, Ongoing, Pending]
+        Victim_id:
+          type: string
+        Request_time:
+          type: string
+          format: date-time
+        request_type:
+          type: string
+        request_location:
+          type: string
+        victim_name:
+          type: string
+        victim_phone:
+          type: string
+        Assignment_id:
+          type: string
+          nullable: true
+        assignment_status:
+          type: string
+          nullable: true
+        Assigned_time:
+          type: string
+          nullable: true
+        Completion_time:
+          type: string
+          nullable: true
+        police_centre:
+          type: string
+          nullable: true
+        police_location:
+          type: string
+          nullable: true
+        police_status:
+          type: string
+          nullable: true
+        Ambulance_id:
+          type: string
+          nullable: true
+        Relevant_hospital:
+          type: string
+          nullable: true
+        ambulance_location:
+          type: string
+          nullable: true
+        ambulance_status:
+          type: string
+          nullable: true
+        Law_case_id:
+          type: string
+          nullable: true
+        law_case_type:
+          type: string
+          nullable: true
+        law_case_status:
+          type: string
+          nullable: true
+        follow_up_id:
+          type: string
+          nullable: true
+        Referred_centre:
+          type: string
+          nullable: true
+        followup_status:
+          type: string
+          nullable: true
+        volunteers_assigned:
+          type: string
+          nullable: true
+          description: Comma-separated "Name (Centre_id)" strings from GROUP_CONCAT
+
+    UpdateIncidentRequest:
+      type: object
+      description: All fields optional
+      properties:
+        status:
+          type: string
+          enum: [Completed, Ongoing, Pending]
+        verification_status:
+          type: string
+          enum: [False, True]
+        note:
+          type: string
+        severity:
+          type: string
+          enum: [High, Medium, Low]
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – VOLUNTEERS
+    # ─────────────────────────────────────────────────────
+    VolunteerAvailable:
+      type: object
+      properties:
+        User_id:
+          type: string
+        Name:
+          type: string
+        Phone_no:
+          type: string
+        Status:
+          type: string
+          nullable: true
+          enum: [Arrived, Ongoing, Pending]
+        Availability:
+          type: string
+          enum: [Yes, No]
+        Emergency_contact:
+          type: string
+        Centre_id:
+          type: string
+        Centre_Location:
+          type: string
+
+    AssignVolunteersRequest:
+      type: object
+      required: [volunteer_ids]
+      properties:
+        volunteer_ids:
+          type: array
+          items:
+            type: string
+          description: Must be from dispatcher's own centre
+          example: ["abc123"]
+
+    AssignVolunteersResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Volunteers assigned successfully."
+        assignment_id:
+          type: string
+        assigned_volunteers:
+          type: array
+          items:
+            type: string
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – RESOURCES
+    # ─────────────────────────────────────────────────────
+    ResourcesResponse:
+      type: object
+      properties:
+        police:
+          type: array
+          items:
+            type: object
+            properties:
+              Centre_id:
+                type: string
+              Location:
+                type: string
+              Centre_number:
+                type: string
+        ambulance:
+          type: array
+          items:
+            type: object
+            properties:
+              Ambulance_id:
+                type: string
+              Relevant_hospital:
+                type: string
+              Location:
+                type: string
+              Contact_info:
+                type: string
+
+    AssignmentCreateRequest:
+      type: object
+      required: [incident_id]
+      properties:
+        incident_id:
+          type: string
+          example: "inc123"
+        police_id:
+          type: string
+          description: Centre_id of an available Police_services record
+          example: "PC001"
+        ambulance_id:
+          type: string
+          example: "AMB001"
+        volunteer_ids:
+          type: array
+          items:
+            type: string
+          description: Must be from dispatcher's own centre
+
+    AssignmentCreateResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Assignment created successfully."
+        assignment_id:
+          type: string
+        assigned_volunteers:
+          type: array
+          items:
+            type: string
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – BACKUP
+    # ─────────────────────────────────────────────────────
+    BackupRequest:
+      type: object
+      required: [reason]
+      properties:
+        reason:
+          type: string
+          example: "Situation escalating, need police backup"
+        backup_type:
+          type: string
+          enum: [Medical, Police, Both, General]
+          default: "General"
+        severity:
+          type: string
+          enum: [High, Medium, Low]
+          default: "Medium"
+
+    BackupResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Backup request processed."
+        incident_id:
+          type: string
+        volunteer:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            centre:
+              type: string
+        victim:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+        location:
+          type: string
+        backup_type:
+          type: string
+        resources_dispatched:
+          type: object
+          properties:
+            police:
+              type: string
+              description: Police centre ID or "Not requested / unavailable"
+            ambulance:
+              type: string
+              description: Ambulance ID or "Not requested / unavailable"
+        details:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum: ["Backup en route", "No resources available"]
+        timestamp:
+          type: string
+          format: date-time
+
+    BackupStatusResponse:
+      type: object
+      properties:
+        incident:
+          type: object
+          properties:
+            id:
+              type: string
+            type:
+              type: string
+            severity:
+              type: string
+            location:
+              type: string
+        assignment:
+          type: object
+          properties:
+            id:
+              type: string
+              nullable: true
+            police:
+              type: object
+              nullable: true
+              properties:
+                id:
+                  type: string
+                location:
+                  type: string
+                status:
+                  type: string
+            ambulance:
+              type: object
+              nullable: true
+              properties:
+                id:
+                  type: string
+                hospital:
+                  type: string
+                location:
+                  type: string
+                status:
+                  type: string
+            volunteers:
+              type: array
+              items:
+                type: string
+        backup_history:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: string
+              volunteer:
+                type: string
+              details:
+                type: string
+        has_active_backup:
+          type: boolean
+
+    # ─────────────────────────────────────────────────────
+    # DISPATCHER – LEGAL & FOLLOW-UP
+    # ─────────────────────────────────────────────────────
+    LawCaseRequest:
+      type: object
+      required: [incident_id, case_type]
+      properties:
+        incident_id:
+          type: string
+          example: "inc123"
+        lawfirm_name:
+          type: string
+          default: "Legal Aid Department"
+          example: "Hassan & Associates"
+        case_type:
+          type: string
+          enum: [Support, Penalty]
+
+    LawCaseResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Law case created successfully."
+        law_case_id:
+          type: string
+        case_type:
+          type: string
+
+    FollowUpRequest:
+      type: object
+      required: [assignment_id, referred_centre, case_type]
+      properties:
+        assignment_id:
+          type: string
+          example: "asgn123"
+        referred_centre:
+          type: string
+          example: "Gulberg Women Shelter Home"
+        case_type:
+          type: string
+          enum: [Support, Penalty]
+
+    FollowUpResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Follow-up support created successfully."
+        follow_up_id:
+          type: string
+
+    StatusUpdateRequest:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          enum: [Completed, Ongoing, Pending]
+
+    # ─────────────────────────────────────────────────────
+    # VOLUNTEER
+    # ─────────────────────────────────────────────────────
+    VolunteerAssignmentView:
+      type: object
+      description: Row from volunteer_assigned_view DB view
+      properties:
+        Volunteer_ID:
+          type: string
+        Volunteer_Name:
+          type: string
+        Volunteer_Phone:
+          type: string
+        Volunteer_Centre_ID:
+          type: string
+        Volunteer_Centre_Location:
+          type: string
+        Vol_assignment_id:
+          type: string
+        Assignment_id:
+          type: string
+        Assigned_time:
+          type: string
+        Completion_time:
+          type: string
+          nullable: true
+        Assignment_Status:
+          type: string
+        Incident_id:
+          type: string
+        Emergency_type:
+          type: string
+        Severity:
+          type: string
+        Incident_Location:
+          type: string
+        Incident_Time:
+          type: string
+        Incident_Status:
+          type: string
+        Police_Centre:
+          type: string
+          nullable: true
+        Police_Status:
+          type: string
+          nullable: true
+        Ambulance_id:
+          type: string
+          nullable: true
+        Ambulance_Status:
+          type: string
+          nullable: true
+        Victim_ID:
+          type: string
+        Victim_Name:
+          type: string
+        Victim_Phone:
+          type: string
+        follow_up_id:
+          type: string
+          nullable: true
+        Referred_centre:
+          type: string
+          nullable: true
+        Followup_Status:
+          type: string
+          nullable: true
+
+    # ─────────────────────────────────────────────────────
+    # PASSWORD RECOVERY
+    # ─────────────────────────────────────────────────────
+    PasswordRecoveryRecord:
+      type: object
+      properties:
+        Recovery_id:
+          type: string
+        User_email:
+          type: string
+        Admin_id:
+          type: string
+        Request_time:
+          type: string
+          format: date-time
+        Response_time:
+          type: string
+          format: date-time
+          nullable: true
+        Status:
+          type: string
+          enum: [Pending, Processed]
+        Note:
+          type: string
+          nullable: true
+
+paths:
+  # ════════════════════════════════════════════════════════
+  # AUTH
+  # ════════════════════════════════════════════════════════
+  /auth/login:
+    post:
+      summary: Login — get JWT token
+      tags: [Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+            example:
+              user_id: "U001"
+              password: "Test@1234"
+      responses:
+        "200":
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        "401":
+          description: Incorrect password
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+        "403":
+          description: Role not found for user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+  /auth/register:
+    post:
+      summary: Self-register as a new Victim
+      tags: [Auth]
+      description: |
+        Creates a User + Victim record. No prior token required.
+        Password must be min 8 chars with uppercase, number, and special character.
+        CNIC must be 13 digits (no dashes).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        "201":
+          description: Victim registered — returns JWT token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        "400":
+          description: Validation error (missing fields, duplicate email/CNIC, invalid format)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+  # ════════════════════════════════════════════════════════
+  # ADMIN – PRIORITY
+  # ════════════════════════════════════════════════════════
+  /admin/system/claim-priority:
+    post:
+      summary: Claim admin priority lock
+      description: |
+        Sets app-level lock. While active, dispatcher write operations are blocked with 423.
+        Admin writes on the same rows are still allowed (admin overrides dispatcher row locks).
+      tags: [Admin – Priority]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClaimPriorityRequest'
+      responses:
+        "200":
+          description: Priority claimed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  lockedBy:
+                    type: string
+                  expiresAt:
+                    type: string
+                    format: date-time
+                  duration:
+                    type: integer
+        "409":
+          description: System already locked by a different admin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /admin/system/release-priority:
+    post:
+      summary: Release admin priority lock (self only)
+      tags: [Admin – Priority]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Priority released
+        "403":
+          description: Only the locking admin can release priority
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  lockedBy:
+                    type: string
+
+  /admin/system/force-release:
+    post:
+      summary: Force-release priority lock (any admin)
+      tags: [Admin – Priority]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Priority forcefully released
+
+  /admin/system/lock-status:
+    get:
+      summary: Get current app + DB lock status
+      tags: [Admin – Priority]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Lock status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LockStatus'
+
+  # ════════════════════════════════════════════════════════
+  # ADMIN – USERS
+  # ════════════════════════════════════════════════════════
+  /admin/user:
+    post:
+      summary: Create user (any role)
+      description: |
+        All roles require name, email, phone_no, address, password, date_of_birth, cnic.
+        - Victim: emergency_contact required
+        - Volunteer: emergency_contact + centre_id required; must be 18+
+        - Dispatcher: centre_id required; must be 18+
+        - Admin: must be 18+
+        CNIC format: #####-#######-# (with dashes, unlike /auth/register)
+      tags: [Admin – Users]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+            examples:
+              victim:
+                summary: Create a Victim
+                value:
+                  name: "Fatima Khan"
+                  email: "fatima@example.com"
+                  phone_no: "03001234567"
+                  address: "House 5, Gulberg, Lahore"
+                  password: "Test@1234"
+                  date_of_birth: "1995-05-15"
+                  role: "Victim"
+                  emergency_contact: "03009998877"
+                  cnic: "12345-1234567-1"
+              dispatcher:
+                summary: Create a Dispatcher
+                value:
+                  name: "Ali Hassan"
+                  email: "ali@example.com"
+                  phone_no: "03111000006"
+                  address: "3 Dispatch Rd"
+                  password: "Test@1234"
+                  date_of_birth: "1988-07-10"
+                  role: "Dispatcher"
+                  centre_id: "C001"
+                  cnic: "44444-4444444-4"
+      responses:
+        "200":
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserResponse'
+        "400":
+          description: Validation error (missing fields, duplicate email/phone/CNIC, underage, invalid CNIC)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: System locked by another write operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /admin/user/{id}:
+    put:
+      summary: Update a user
+      description: |
+        All fields optional. Changing role deletes old primary role row, preserves Victim row
+        if user was also a Victim. Providing role=Volunteer requires centre_id.
+      tags: [Admin – Users]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          example: "a1b2c3d4e5f67890"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        "200":
+          description: User updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User updated successfully."
+                  age:
+                    type: integer
+                    nullable: true
+                    description: Present only when date_of_birth was provided
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "404":
+          description: User not found (lockRow returns 404 before handler runs)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row is locked by another connection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+    delete:
+      summary: Delete a user
+      description: |
+        Blocked if user has: open victim requests/incidents, open dispatcher incidents,
+        active volunteer assignments, open law cases, open follow-ups, pending password
+        recovery requests, is the last admin, or is referenced as Admin_id in Password_Recovery.
+      tags: [Admin – Users]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "User deleted successfully."
+        "400":
+          description: Cannot delete — active dependencies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /admin/users:
+    get:
+      summary: Get all users (with role, centre, availability)
+      tags: [Admin – Users]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: User list
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserListItem'
+        "423":
+          description: System locked by admin write operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /admin/users/search:
+    get:
+      summary: Search users by name / email / role / phone / DOB range
+      tags: [Admin – Users]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Partial match on Name
+        - in: query
+          name: email
+          schema:
+            type: string
+          description: Partial match on Email
+        - in: query
+          name: role
+          schema:
+            type: string
+            enum: [Admin, Victim, Dispatcher, Volunteer]
+          description: Exact role filter
+        - in: query
+          name: phone
+          schema:
+            type: string
+          description: Partial match on Phone_no
+        - in: query
+          name: from_date
+          schema:
+            type: string
+            format: date
+          description: Date_of_Birth >=
+        - in: query
+          name: to_date
+          schema:
+            type: string
+            format: date
+          description: Date_of_Birth <=
+      responses:
+        "200":
+          description: Search results (array)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserListItem'
+        "400":
+          description: Invalid role filter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: System locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # ADMIN – TABLE VIEWS (allTables loop)
+  # Tables: request_log, incident, assignment, volunteer_assignment,
+  #         law_case, follow_up_support, ambulance_service, police_services,
+  #         dispatcher, victim, admin, centre, user, volunteer, password_recovery
+  # ════════════════════════════════════════════════════════
+  /admin/tables:
+    get:
+      summary: Get metadata for all DB tables
+      tags: [Admin – Tables]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Array of table metadata
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TableInfo'
+        "423":
+          description: System locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /admin/{table}:
+    get:
+      summary: View all rows of a table
+      tags: [Admin – Tables]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            enum:
+              - request_log
+              - incident
+              - assignment
+              - volunteer_assignment
+              - law_case
+              - follow_up_support
+              - ambulance_service
+              - police_services
+              - dispatcher
+              - victim
+              - admin
+              - centre
+              - user
+              - volunteer
+              - password_recovery
+      responses:
+        "200":
+          description: Table data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TableViewResponse'
+        "423":
+          description: System locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /admin/{table}/{id}:
+    get:
+      summary: View single record with lock info
+      tags: [Admin – Tables]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            enum:
+              - request_log
+              - incident
+              - assignment
+              - volunteer_assignment
+              - law_case
+              - follow_up_support
+              - ambulance_service
+              - police_services
+              - dispatcher
+              - victim
+              - admin
+              - centre
+              - user
+              - volunteer
+              - password_recovery
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Record data + lock info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleRecordResponse'
+        "404":
+          description: Record not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: System locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+    put:
+      summary: Update record (updatable tables only)
+      description: |
+        Only works for: request_log, law_case, follow_up_support, centre,
+        incident, assignment, ambulance_service, police_services.
+        Fields are validated against the actual DB table columns (SHOW COLUMNS).
+        Any field not in the table is silently ignored.
+      tags: [Admin – Tables]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            enum:
+              - request_log
+              - law_case
+              - follow_up_support
+              - centre
+              - incident
+              - assignment
+              - ambulance_service
+              - police_services
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Any valid column names for the table
+            example:
+              Location: "Updated Location WPS"
+      responses:
+        "200":
+          description: Record updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  affected_rows:
+                    type: integer
+        "400":
+          description: No valid fields provided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "404":
+          description: Record not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+    delete:
+      summary: Delete record (updatable tables only)
+      tags: [Admin – Tables]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: table
+          required: true
+          schema:
+            type: string
+            enum:
+              - request_log
+              - law_case
+              - follow_up_support
+              - centre
+              - incident
+              - assignment
+              - ambulance_service
+              - police_services
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Record deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  affected_rows:
+                    type: integer
+        "404":
+          description: Record not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – WORKLOAD
+  # ════════════════════════════════════════════════════════
+  /dispatcher/workload:
+    get:
+      summary: Get dispatcher workload and history stats
+      tags: [Dispatcher – Workload]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Workload details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkloadResponse'
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/availability:
+    put:
+      summary: Manually set own availability
+      description: |
+        Cannot set to "No" — the trigger `update_dispatcher_status_on_request`
+        automatically sets Availability to "No" when a call is logged.
+        Set back to "Yes" manually when ready.
+      tags: [Dispatcher – Workload]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [availability]
+              properties:
+                availability:
+                  type: string
+                  enum: [Yes, No]
+      responses:
+        "200":
+          description: Availability updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  availability:
+                    type: string
+        "400":
+          description: Invalid value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – VICTIMS
+  # ════════════════════════════════════════════════════════
+  /dispatcher/victim/search:
+    get:
+      summary: Search victim by phone number
+      description: Any dispatcher can search any victim — victim records are shared data.
+      tags: [Dispatcher – Victims]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: phone
+          required: true
+          schema:
+            type: string
+          example: "03001234567"
+      responses:
+        "200":
+          description: Result (found=false if no match)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VictimSearchResponse'
+        "400":
+          description: Phone param missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/victim:
+    post:
+      summary: Create emergency or full victim record
+      description: |
+        If `phone_no` matches an existing user → returns that user (adds Victim row if needed).
+        If new → creates User + Victim. Missing cnic/dob → emergency record with placeholders.
+        Victims are shared resources — no centre restriction.
+      tags: [Dispatcher – Victims]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VictimCreateRequest'
+            examples:
+              emergency:
+                summary: Minimal emergency record
+                value:
+                  name: "Emergency Caller"
+                  phone_no: "03500000001"
+              full:
+                summary: Full record
+                value:
+                  name: "Fatima Khan"
+                  phone_no: "03001234567"
+                  email: "fatima@example.com"
+                  address: "House 5, Gulberg"
+                  date_of_birth: "1995-05-15"
+                  cnic: "12345-1234567-1"
+                  emergency_contact: "03009998877"
+      responses:
+        "200":
+          description: Victim created or existing victim found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VictimCreateResponse'
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/victim/{id}:
+    get:
+      summary: Get victim details by ID
+      description: Any dispatcher can view any victim (shared resource).
+      tags: [Dispatcher – Victims]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Victim details with request/incident counts
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VictimDetailResponse'
+        "404":
+          description: Victim not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+    put:
+      summary: Update victim info (row-locked)
+      description: |
+        Any dispatcher can update any victim — victim records are shared data.
+        Row lock prevents simultaneous edits.
+      tags: [Dispatcher – Victims]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                address:
+                  type: string
+                emergency_contact:
+                  type: string
+                  pattern: '^\d{10,11}$'
+                phone_no:
+                  type: string
+                  pattern: '^\d{10,11}$'
+      responses:
+        "200":
+          description: Victim updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Victim updated successfully."
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "404":
+          description: Victim not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked by another dispatcher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – CALLS
+  # ════════════════════════════════════════════════════════
+  /dispatcher/call-log:
+    post:
+      summary: Log an incoming call (creates Request_log entry)
+      description: |
+        Requires victim_id, note (NOT NULL in DB), and location.
+        Dispatcher must have Availability=Yes.
+        Trigger `update_dispatcher_status_on_request` auto-sets Availability=No after insert.
+        Returns workload_warning if dispatcher already has active incidents.
+      tags: [Dispatcher – Calls]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CallLogRequest'
+      responses:
+        "200":
+          description: Call logged
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallLogResponse'
+        "400":
+          description: Validation error or dispatcher unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/calls:
+    get:
+      summary: Get all calls for this dispatcher
+      description: Filtered by Dispatcher_id. Includes linked incident status.
+      tags: [Dispatcher – Calls]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Array of calls
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CallListItem'
+
+  /dispatcher/calls/{id}:
+    get:
+      summary: Get single call with full victim and incident details
+      description: Filtered by both Request_id and Dispatcher_id.
+      tags: [Dispatcher – Calls]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Call detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CallDetailResponse'
+        "404":
+          description: Call not found (or belongs to another dispatcher)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+    put:
+      summary: Update call note or type (row-locked, ownership enforced)
+      description: |
+        UPDATE WHERE includes Dispatcher_id — returns 403 if call belongs to another dispatcher.
+        Row lock prevents concurrent edits.
+      tags: [Dispatcher – Calls]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: string
+                type:
+                  type: string
+                  enum: [False, Emergency, Query]
+      responses:
+        "200":
+          description: Call updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Call updated successfully."
+        "400":
+          description: No fields to update or invalid type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "403":
+          description: Call does not belong to this dispatcher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – INCIDENTS
+  # ════════════════════════════════════════════════════════
+  /dispatcher/incident:
+    post:
+      summary: Create incident from a logged call
+      description: |
+        Acquires row lock on Request_log row (body-based, not param).
+        request_id must belong to this dispatcher.
+        One incident per request — returns 400 if already exists.
+        Trigger `update_incident_status_on_assignment` auto-completes incident when assignment completes.
+      tags: [Dispatcher – Incidents]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentCreateRequest'
+      responses:
+        "200":
+          description: Incident created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentCreateResponse'
+        "400":
+          description: Validation error, duplicate incident, or request not owned by this dispatcher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked (admin priority active or another write in progress)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/incidents:
+    get:
+      summary: Get all incidents for this dispatcher
+      tags: [Dispatcher – Incidents]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Array of incidents with assignment info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IncidentDetail'
+
+  /dispatcher/incidents/{id}:
+    get:
+      summary: Get single incident with full details
+      description: Returns 404 if incident belongs to a different dispatcher.
+      tags: [Dispatcher – Incidents]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Full incident detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentDetail'
+        "404":
+          description: Incident not found or not assigned to this dispatcher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/incident/{id}:
+    put:
+      summary: Update incident (row-locked, ownership enforced)
+      tags: [Dispatcher – Incidents]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateIncidentRequest'
+      responses:
+        "200":
+          description: Incident updated (may include suggestion if verification_status=False)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  suggestion:
+                    type: string
+                    nullable: true
+        "400":
+          description: Validation error or not assigned to this dispatcher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – VOLUNTEERS
+  # ════════════════════════════════════════════════════════
+  /dispatcher/volunteers/available:
+    get:
+      summary: Get available volunteers from THIS dispatcher's centre only
+      description: |
+        Filtered by dispatcher's own Centre_id from Dispatcher table.
+        Optional severity=High orders by experience (Status DESC).
+      tags: [Dispatcher – Volunteers]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: severity
+          schema:
+            type: string
+            enum: [High, Medium, Low]
+      responses:
+        "200":
+          description: Available volunteers (own centre only)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VolunteerAvailable'
+
+  /dispatcher/incident/{id}/assign-volunteers:
+    post:
+      summary: Assign volunteers to an incident (row-locked)
+      description: |
+        Creates an Assignment row if none exists for this incident.
+        Each volunteer must belong to this dispatcher's centre.
+        Per-volunteer named advisory lock prevents race conditions between dispatchers.
+        DB trigger `check_volunteer_availability_before_insert` also fires as a safety net.
+      tags: [Dispatcher – Volunteers]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Incident ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignVolunteersRequest'
+      responses:
+        "200":
+          description: Volunteers assigned
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignVolunteersResponse'
+        "400":
+          description: Volunteer unavailable, wrong centre, or not your incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "404":
+          description: Incident not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked or volunteer row locked by concurrent dispatcher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – RESOURCES
+  # ════════════════════════════════════════════════════════
+  /dispatcher/resources/available:
+    get:
+      summary: Get available police units and ambulances (Status=Pending)
+      tags: [Dispatcher – Resources]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Available police and ambulance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourcesResponse'
+
+  /dispatcher/assignment:
+    post:
+      summary: Create assignment (police + ambulance + optional volunteers)
+      description: |
+        Acquires row lock on Incident row (body-based id).
+        Only one assignment per incident allowed.
+        Police/ambulance status set to Ongoing after assignment.
+      tags: [Dispatcher – Resources]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignmentCreateRequest'
+      responses:
+        "200":
+          description: Assignment created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentCreateResponse'
+        "400":
+          description: Assignment already exists or not your incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/assignment/{id}:
+    put:
+      summary: Update assignment status (row-locked, ownership enforced)
+      description: |
+        Triggers on Completed:
+        - `set_completion_time_on_finish` sets Completion_time
+        - `update_incident_status_on_assignment` closes the linked incident
+        - `update_dispatcher_available_on_incident_resolution` restores dispatcher Availability=Yes
+      tags: [Dispatcher – Resources]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusUpdateRequest'
+      responses:
+        "200":
+          description: Assignment updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Assignment updated successfully."
+        "400":
+          description: Invalid status or not your assignment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – BACKUP
+  # ════════════════════════════════════════════════════════
+  /dispatcher/volunteer/{id}/backup-request:
+    post:
+      summary: Process backup request from an on-duty volunteer
+      description: |
+        Volunteer must be on an Ongoing assignment belonging to THIS dispatcher.
+        Dispatches available police/ambulance and appends a note to the incident.
+      tags: [Dispatcher – Backup]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Volunteer User_id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BackupRequest'
+      responses:
+        "200":
+          description: Backup processed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackupResponse'
+        "404":
+          description: Volunteer not found, not on active duty, or on a different dispatcher's incident
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  suggestion:
+                    type: string
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/incident/{id}/backup-status:
+    get:
+      summary: Get resource and backup status for an incident
+      description: Returns 404 if incident belongs to another dispatcher.
+      tags: [Dispatcher – Backup]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Backup status with history
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BackupStatusResponse'
+        "404":
+          description: Incident not found or not assigned to this dispatcher
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – LEGAL
+  # ════════════════════════════════════════════════════════
+  /dispatcher/lawcase:
+    post:
+      summary: Create law case for an incident
+      description: One law case per incident. Acquires Incident row lock (body-based id).
+      tags: [Dispatcher – Legal]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LawCaseRequest'
+      responses:
+        "200":
+          description: Law case created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LawCaseResponse'
+        "400":
+          description: Already exists, invalid case_type, or not your incident
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/lawcases:
+    get:
+      summary: Get all law cases for this dispatcher
+      tags: [Dispatcher – Legal]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Array of law cases with incident and victim info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  /dispatcher/lawcase/{id}:
+    put:
+      summary: Update law case status (row-locked, ownership enforced)
+      tags: [Dispatcher – Legal]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusUpdateRequest'
+      responses:
+        "200":
+          description: Law case updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "400":
+          description: Invalid status or not your law case
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – FOLLOW-UP
+  # ════════════════════════════════════════════════════════
+  /dispatcher/followup:
+    post:
+      summary: Create follow-up support referral
+      description: One follow-up per assignment. Acquires Assignment row lock (body-based id).
+      tags: [Dispatcher – Follow-up]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FollowUpRequest'
+      responses:
+        "200":
+          description: Follow-up created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FollowUpResponse'
+        "400":
+          description: Already exists, invalid case_type, or not your assignment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/followups:
+    get:
+      summary: Get all follow-ups for this dispatcher
+      tags: [Dispatcher – Follow-up]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Array of follow-ups with incident and victim info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  /dispatcher/followup/{id}:
+    put:
+      summary: Update follow-up status (row-locked, ownership enforced)
+      tags: [Dispatcher – Follow-up]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusUpdateRequest'
+      responses:
+        "200":
+          description: Follow-up updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "400":
+          description: Invalid status or not your follow-up
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Row locked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # DISPATCHER – ADMIN TAKEOVER
+  # ════════════════════════════════════════════════════════
+  /dispatcher/incident/{id}/admin-takeover:
+    post:
+      summary: Admin force-takes over a dispatcher's incident lock
+      description: |
+        Admin only. Force-releases dispatcher's named advisory lock on the incident
+        then immediately acquires it for the admin.
+        After writing, call admin-release-lock to return access to dispatchers.
+      tags: [Dispatcher – Admin Takeover]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Admin now holds the lock
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  incident_id:
+                    type: string
+                  taken_over_from:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                  taken_over_by:
+                    type: string
+                  lock_note:
+                    type: string
+                  timestamp:
+                    type: string
+                    format: date-time
+        "403":
+          description: Dispatcher token used (Admin only)
+        "404":
+          description: Incident not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+        "423":
+          description: Could not acquire lock after force-release
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  /dispatcher/incident/{id}/admin-release-lock:
+    post:
+      summary: Admin releases taken-over incident lock
+      description: Call this after finishing takeover work so dispatchers can access the incident again.
+      tags: [Dispatcher – Admin Takeover]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Lock released
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  incident_id:
+                    type: string
+        "403":
+          description: Dispatcher token used (Admin only)
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorAdmin'
+
+  # ════════════════════════════════════════════════════════
+  # VOLUNTEER
+  # ════════════════════════════════════════════════════════
+  /volunteer/assignments/current:
+    get:
+      summary: Get active (non-Completed) assignments from volunteer_assigned_view
+      tags: [Volunteer]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current assignments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VolunteerAssignmentView'
+
+  /volunteer/assignments/history:
+    get:
+      summary: Get completed assignments from volunteer_assigned_view
+      tags: [Volunteer]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Completed assignments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VolunteerAssignmentView'
+
+  /volunteer/assignment/{id}:
+    put:
+      summary: Update own assignment status (Arrived / Ongoing / Pending)
+      description: |
+        Updates Volunteer.Status. Blocked if assignment is already Completed.
+        Note — valid values here are Arrived/Ongoing/Pending (Volunteer.Status),
+        not the same as Assignment.Status (Completed/Ongoing/Pending).
+      tags: [Volunteer]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Assignment_id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [Status]
+              properties:
+                Status:
+                  type: string
+                  enum: [Arrived, Ongoing, Pending]
+      responses:
+        "200":
+          description: Status updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Your status has been updated successfully"
+        "400":
+          description: Invalid status or assignment is completed / not assigned to you
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+  /volunteer/availability:
+    put:
+      summary: Update own availability (blocked if active assignments exist)
+      description: |
+        Cannot change to Yes/No while Assignment.Status != Completed.
+        Setting to Yes also sets Volunteer.Status = NULL.
+      tags: [Volunteer]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [Availability]
+              properties:
+                Availability:
+                  type: string
+                  enum: [Yes, No]
+      responses:
+        "200":
+          description: Availability updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "400":
+          description: Invalid value or has active (non-Completed) assignments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+  # ════════════════════════════════════════════════════════
+  # VICTIM
+  # ════════════════════════════════════════════════════════
+  /victim/register:
+    post:
+      summary: Add Victim role to an existing logged-in user
+      description: |
+        Requires any valid JWT (no specific role restriction on this route).
+        If user is already a Volunteer, reuses their Emergency_contact.
+        Otherwise Emergency_contact must be provided.
+        Returns a new JWT token containing the updated roles array.
+      tags: [Victim]
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Emergency_contact:
+                  type: string
+                  pattern: '^\d{10,11}$'
+                  description: Required if user is not already a Volunteer
+                  example: "03009998877"
+      responses:
+        "200":
+          description: Registered as victim — new token returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  roles:
+                    type: array
+                    items:
+                      type: string
+                  token:
+                    type: string
+        "400":
+          description: Already a victim, missing emergency contact, or invalid format
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+  /victim/request:
+    post:
+      summary: Submit an emergency request (auto-assigns available dispatcher)
+      description: |
+        Requires Victim role. Selects an available dispatcher using round-robin.
+        Dispatcher must have Availability=Yes and must not be the victim themselves.
+        Returns 400 if no dispatchers are available.
+      tags: [Victim]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [Note, Location]
+              properties:
+                Note:
+                  type: string
+                  example: "Husband threatening with weapon"
+                Location:
+                  type: string
+                  example: "House 123, Street 4, Gulberg, Lahore"
+      responses:
+        "200":
+          description: Request submitted — dispatcher auto-assigned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  Request_id:
+                    type: string
+                  Dispatcher_id:
+                    type: string
+        "400":
+          description: Missing fields or no available dispatchers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+  /victim/incidents:
+    get:
+      summary: View own incidents via victim_personal_view DB view
+      tags: [Victim]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Victim's full incident history with assignments, law cases, follow-ups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  description: Row from victim_personal_view
+
+  # ════════════════════════════════════════════════════════
+  # PASSWORD RECOVERY
+  # ════════════════════════════════════════════════════════
+  /password-recovery:
+    post:
+      summary: Create password recovery request (Victim / Volunteer / Dispatcher)
+      description: |
+        Assigns to an admin using round-robin based on last assigned admin in Password_Recovery.
+        Uses req.user.email from the JWT — no body required.
+      tags: [Password Recovery]
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Recovery request created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  Recovery_id:
+                    type: string
+                  assigned_admin:
+                    type: string
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+        "500":
+          description: No admins available or server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+    get:
+      summary: Admin — get all recovery requests
+      tags: [Password Recovery]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: All recovery requests ordered by Request_time DESC
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PasswordRecoveryRecord'
+
+  /password-recovery/my-requests:
+    get:
+      summary: User — get own recovery requests (Victim / Volunteer / Dispatcher)
+      description: |
+        ⚠️ This route is defined AFTER `/:id` in the source code but works correctly
+        because Express matches literal path segments before parameterised ones.
+      tags: [Password Recovery]
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: User's own recovery requests
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PasswordRecoveryRecord'
+
+  /password-recovery/{id}/reset-password:
+    put:
+      summary: Admin — reset the user's password for a recovery request
+      description: |
+        Generates a random 12-char hex password, hashes and saves it.
+        Returns the plain-text new password in the response (show to user once).
+        Marks request as Processed and sets Response_time.
+        Blocked if already Processed.
+      tags: [Password Recovery]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                note:
+                  type: string
+                  description: Optional note for the recovery record
+                status:
+                  type: string
+                  enum: [Pending, Processed]
+                  default: "Processed"
+      responses:
+        "200":
+          description: Password reset — plain-text new password returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Password reset successfully."
+                  new_password:
+                    type: string
+                    example: "3a7f2b9e"
+        "400":
+          description: Already processed or invalid status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+        "404":
+          description: Recovery request or user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+  /password-recovery/{id}:
+    put:
+      summary: Admin — update recovery request status or note
+      description: At least one of status or note must be provided. Blocked if already Processed.
+      tags: [Password Recovery]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [Pending, Processed]
+                note:
+                  type: string
+      responses:
+        "200":
+          description: Request updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Request updated"
+        "400":
+          description: Already processed, no fields provided, or invalid status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+        "404":
+          description: Request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
+
+    delete:
+      summary: Admin — delete a recovery request
+      tags: [Password Recovery]
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Deleted successfully"
+        "404":
+          description: Request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorGeneral'
